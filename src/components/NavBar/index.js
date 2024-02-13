@@ -1,7 +1,6 @@
 import style from "./style.module.css";
 import { Link } from "react-router-dom";
 
-
 export const NavBar = ({ itemsList }) => {
   return (
     <div className={style.container}>
