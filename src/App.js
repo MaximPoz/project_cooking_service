@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {NavBar} from "./components/NavBar";
+import {FootBar} from "./components/FootBar";
 
-function App() {
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+export default function App() {
+  let itemsList = [
+    { nameNav: "Список помещений", url: "list" },
+    { nameNav: "Личный кабинет", url: "lk" },
+    { nameNav: "Авторизация", url: "auth" },
+    { nameNav: "Регистрация", url: "reg" },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <NavBar itemsList={itemsList} />
+        <FootBar />
+
+        <Routes>
+          <Route path={`/${itemsList.url}`} element={`< ${itemsList.url} />`} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
-
-export default App;

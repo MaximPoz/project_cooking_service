@@ -1,0 +1,40 @@
+/* style.css */
+
+.footerContainer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%; /* Растягиваем блок на всю ширину */
+}
+
+.footer {
+    background-color: #333; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 20px; /* Отступы внутри блока */
+    width: 100%; /* Растягиваем блок на всю ширину */;
+    text-align: center;
+}
+
+.menu ul {
+    list-style-type: none; /* Убираем маркеры у списка */
+    padding: 0;
+    margin: 0;
+}
+
+.menu ul li {
+    display: inline; /* Отображаем элементы списка в строку */
+    margin-right: 100px; /* Расстояние между элементами */
+}
+
+.menu ul li:last-child {
+    margin-right: 0; /* Убираем правый отступ у последнего элемента */
+}
+
+.menu ul li a {
+    color: #fff; /* Цвет ссылок */
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+}
+
+.menu ul li a:hover {
+    text-decoration: underline; /* Добавляем подчеркивание при наведении на ссылку */
+}
