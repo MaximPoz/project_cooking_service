@@ -1,0 +1,30 @@
+.container {
+    display: flex; /* Устанавливаем родительскому контейнеру свойство display: flex */
+    flex-wrap: wrap; /* Разрешаем элементам переноситься на новую строку при необходимости */
+    text-align: center;
+    margin: 20px 100px;
+}
+
+.item {
+    display: flex; /* Устанавливаем каждому элементу свойство display: flex */
+    flex-direction: column; /* Устанавливаем направление элементов в колонку */
+    align-items: center; /* Выравниваем элементы по центру по горизонтали */
+    margin: 30px; /* Добавляем отступ между элементами */
+}
+
+.imageClass {
+    width: 100px; /* Устанавливаем ширину изображений */
+    height: 100px; /* Устанавливаем высоту изображений */
+}
+
+.textClass {
+    width: 100px; /* Устанавливаем ширину изображений */
+    height: 100px; /* Устанавливаем высоту изображений */
+    font-size: 15px;
+}
+
+.head{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
