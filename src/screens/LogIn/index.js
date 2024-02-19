@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import style from "./style.module.css";
+import { Link } from "react-router-dom";
 
 export const LogIn = () => {
     const {
@@ -31,6 +32,9 @@ export const LogIn = () => {
   
           <input className={style.submit} type="submit" value="Отправить" />
         </form>
+        <hr />
+        
+        <Link to="/changePassword"><button className={style.submit}>Забыли пароль</button></Link>
       </div>
     );
   };
