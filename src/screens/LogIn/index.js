@@ -14,6 +14,9 @@ export const LogIn = () => {
   
     return (
       <div className={style.container}>
+
+        <h3>Пожалуйста авторизуйтесь</h3>
+        
         <form onSubmit={handleSubmit(onSubmit)}>
 
           <input

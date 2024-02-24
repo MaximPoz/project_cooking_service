@@ -1,4 +1,5 @@
 import "./App.css";
+import store from "./Redux/store/store";
 import { NavBar } from "./components/NavBar";
 import { FootBar } from "./components/FootBar";
 import { LogIn } from "./screens/LogIn";
@@ -7,10 +8,11 @@ import { PersonalAccount } from "./screens/PersonalAccount";
 import { Registration } from "./screens/Registration";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ChangePassword } from "./screens/ChangePassword";
-import { EmailPassword } from "./screens/EmailPassword";
-import { AboutUs } from "./screens/AboutUs";
-import { Contacts } from "./screens/Contacts";
+import { ChangePassword } from "./screens/LogIn/ChangePassword";
+import { EmailPassword } from "./screens/LogIn/EmailPassword";
+import { AboutUs } from "./screens/Footer/AboutUs";
+import { Contacts } from "./screens/Footer/Contacts";
+import { Provider } from "react-redux";
 
 export default function App() {
   let itemsList = [
@@ -26,7 +28,7 @@ export default function App() {
   ];
 
   return (
-    <>
+    <Provider store={store}>
       <BrowserRouter>
         <NavBar itemsList={itemsList} />
         <FootBar footer={footer} />
@@ -42,6 +44,6 @@ export default function App() {
           <Route path="/contacts" element={<Contacts />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </Provider>
   );
 }

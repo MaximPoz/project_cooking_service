@@ -1,42 +1,38 @@
 /* style.module.css */
 
 .container {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #333;
-    padding: 10px 10px
-  }
-  
-  .footBar {
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-  }
-  
-  .menu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .menu ul li {
-    display: inline;
-    margin-right: 100px;
-  }
-  
-  .menu ul li:last-child {
-    margin-right: 0;
-  }
-  
-  .menu ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 20px;
-  }
-  
-  .menu ul li a:hover {
-    text-decoration: underline;
-  }
-  
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  /* padding: 10px 20px; */
+}
+
+.footBar {
+  display: flex;
+  justify-content: center; /* Выравниваем содержимое по центру */
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.menu ul li:last-child {
+  margin-right: 0;
+}
+
+.menu ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu ul li a:hover {
+  text-decoration: underline;
+}
