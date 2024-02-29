@@ -1,9 +1,12 @@
 .container {
   width: 100%;
   background-color: #333;
-  color: #fff;
-  font-size: 20px;
-  padding-top: 80px;
+  font-size: 20px; /* Увеличиваем размер шрифта */
+  font-weight: bold; /* Делаем текст жирным */
+  color: #FF6347; /* Изменяем цвет текста на томатный */
+  letter-spacing: 2px; /* Увеличиваем расстояние между буквами */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень к тексту */
+  padding-top: 100px;;
 }
 
 .nav {
@@ -20,8 +23,9 @@
 }
 
 .logo img {
-  width: 50px; /* Adjust size as needed */
+  width: 50px;
   height: auto;
+  border-radius: 43%;
 }
 
 .menu ul {
@@ -48,3 +52,14 @@
 .menu li a:hover {
   color: #ff0; /* Change to desired hover color */
 }
+
+.nameSite {
+  display: flex;
+  font-size: 24px; /* Увеличиваем размер шрифта */
+  font-weight: bold; /* Делаем текст жирным */
+  color: #FF6347; /* Изменяем цвет текста на томатный */
+  text-transform: uppercase; /* Преобразуем текст в верхний регистр */
+  letter-spacing: 2px; /* Увеличиваем расстояние между буквами */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень к тексту */
+}
+

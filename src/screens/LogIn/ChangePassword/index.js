@@ -38,7 +38,7 @@ export const ChangePassword = () => {
     return Math.floor(Math.random() * 999999);
   }
 
-// onCaptchaGenerated(captcha)
+// onCaptchaGenerated(casptc)
 
   const {
     register,

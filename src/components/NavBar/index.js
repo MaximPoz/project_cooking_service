@@ -6,8 +6,9 @@ export const NavBar = ({ itemsList }) => {
     <div className={style.container}>
       <div className={style.nav}>
         <div className={style.logo}>
-          <img src="/favicon.ico" alt="logo" />
+          <img src="/logo111.jpeg" alt="logo" />
         </div>
+        <p className={style.nameSite}>the magic of fashion</p>
         <div className={style.menu}>
           <ul>
             {itemsList.map((item, index) => (

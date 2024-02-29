@@ -1,10 +1,9 @@
 import "./App.css";
-import store from "./Redux/store/store";
 import { NavBar } from "./components/NavBar";
 import { FootBar } from "./components/FootBar";
 import { LogIn } from "./screens/LogIn";
 import { List } from "./screens/List";
-import { PersonalAccount } from "./screens/PersonalAccount";
+import { PersonalAccount } from "./screens/PersonalAccount/UserProfile";
 import { Registration } from "./screens/Registration";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -12,7 +11,7 @@ import { ChangePassword } from "./screens/LogIn/ChangePassword";
 import { EmailPassword } from "./screens/LogIn/EmailPassword";
 import { AboutUs } from "./screens/Footer/AboutUs";
 import { Contacts } from "./screens/Footer/Contacts";
-import { Provider } from "react-redux";
+import { ChangeProfile } from "./screens/PersonalAccount/ChangeProfile";
 
 export default function App() {
   let itemsList = [
@@ -28,22 +27,21 @@ export default function App() {
   ];
 
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <NavBar itemsList={itemsList} />
-        <FootBar footer={footer} />
+    <BrowserRouter>
+      <NavBar itemsList={itemsList} />
+      <FootBar footer={footer} />
 
-        <Routes>
-          <Route path="/logIn" element={<LogIn />} />
-          <Route path="/changePassword" element={<ChangePassword />} />
-          <Route path="/emailPassword" element={<EmailPassword />} />
-          <Route path="/list" element={<List />} />
-          <Route path="/personalAccount" element={<PersonalAccount />} />
-          <Route path="/reg" element={<Registration />} />
-          <Route path="/aboutUs" element={<AboutUs />} />
-          <Route path="/contacts" element={<Contacts />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+      <Routes>
+        <Route path="/logIn" element={<LogIn />} />
+        <Route path="/changePassword" element={<ChangePassword />} />
+        <Route path="/emailPassword" element={<EmailPassword />} />
+        <Route path="/list" element={<List />} />
+        <Route path="/personalAccount" element={<PersonalAccount />} />
+        <Route path="/changeProfile" element={<ChangeProfile />} />
+        <Route path="/reg" element={<Registration />} />
+        <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/contacts" element={<Contacts />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
