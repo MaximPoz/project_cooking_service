@@ -18,7 +18,7 @@ export const EmailPassword = () => {
       
     return (
         <div className={style.container}>
-            <h3>Восстановление пароля</h3>
+            <h2 className="welcome">Восстановление пароля</h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -36,7 +36,7 @@ export const EmailPassword = () => {
             {...register("pinCod", { required: true, maxLength: 4 })}
           />
             
-          <input className={style.submit} type="submit" value="Отправить" />
+          <input className='Btn' type="submit" value="Отправить" />
 
         </form>
         </div>

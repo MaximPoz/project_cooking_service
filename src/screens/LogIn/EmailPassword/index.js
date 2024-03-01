@@ -16,7 +16,7 @@ export const EmailPassword = () => {
 
   return (
     <div className={style.container}>
-      <h3>Введите пин-код</h3>
+      <h2 className="welcome">Введите пин-код</h2>
       <p>который получили в указанном ранее e-mail</p>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,7 +42,7 @@ export const EmailPassword = () => {
           {errors?.pinCode && <p>{errors?.pinCode?.message || "Errors!!!"} </p>}
         </div>
 
-        <input className={style.submit} type="submit" value="Отправить" />
+        <input className='Btn' type="submit" value="Отправить" />
       </form>
     </div>
   );

@@ -24,7 +24,7 @@ export const List = () => {
   return (
     <div>
       {/* Применяем стиль к родительскому контейнеру */}
-      <h1 className={style.head}>List of premises</h1>
+      <h1 className="welcome">List of premises</h1>
       <div className={style.container}>
         {items.map((item) => (
           <div className={style.item} key={item.id}>

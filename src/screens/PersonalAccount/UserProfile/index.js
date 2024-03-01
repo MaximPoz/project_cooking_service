@@ -31,7 +31,7 @@ export const PersonalAccount = () => {
 
   return (
     <div className={style.personalAccount}>
-      <h2 className={style.welcome}>
+      <h2 className="welcome">
         Добро пожаловать {upperCase(user.name.firstname)} в Ваш личный кабинет
       </h2>
       <div className={style.userInfo}>

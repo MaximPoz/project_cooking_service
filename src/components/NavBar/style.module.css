@@ -3,10 +3,10 @@
   background-color: #333;
   font-size: 20px; /* Увеличиваем размер шрифта */
   font-weight: bold; /* Делаем текст жирным */
-  color: #FF6347; /* Изменяем цвет текста на томатный */
+  color: #ff6347; /* Изменяем цвет текста на томатный */
   letter-spacing: 2px; /* Увеличиваем расстояние между буквами */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень к тексту */
-  padding-top: 100px;;
+  padding-top: 100px;
 }
 
 .nav {
@@ -41,12 +41,15 @@
 
 .menu li:last-child {
   margin-right: 0;
+  
 }
 
 .menu li a {
   text-decoration: none;
   color: #fff;
-  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
 .menu li a:hover {
@@ -57,9 +60,8 @@
   display: flex;
   font-size: 24px; /* Увеличиваем размер шрифта */
   font-weight: bold; /* Делаем текст жирным */
-  color: #FF6347; /* Изменяем цвет текста на томатный */
+  color: #ff6347; /* Изменяем цвет текста на томатный */
   text-transform: uppercase; /* Преобразуем текст в верхний регистр */
   letter-spacing: 2px; /* Увеличиваем расстояние между буквами */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень к тексту */
 }
-

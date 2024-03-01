@@ -15,7 +15,7 @@ export const LogIn = () => {
     return (
       <div className={style.container}>
 
-        <h3>Пожалуйста авторизуйтесь</h3>
+        <h2 className="welcome">Пожалуйста авторизуйтесь</h2>
         
         <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -33,11 +33,11 @@ export const LogIn = () => {
             {...register("Password", { required: true, maxLength: 100 })}
           />
   
-          <input className={style.submit} type="submit" value="Отправить" />
+          <input className='Btn' type="submit" value="Отправить" />
         </form>
         <hr />
         
-        <Link to="/changePassword"><button className={style.submit}>Забыли пароль</button></Link>
+        <Link to="/changePassword"><button className='Btn'>Забыли пароль</button></Link>
       </div>
     );
   };

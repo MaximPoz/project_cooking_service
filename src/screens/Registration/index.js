@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 
 export const Registration = () => {
+  const [pass, setPass] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
+  const onSubmit = (data) => {
+    if (data.Password == data.rePassword) {
+      setPass(true);
+      console.log(data);
+    } else {
+      setPass(false);
+    }
+  };
 
   return (
     <div className={style.container}>
+      <h2 className="welcome">Регистрация</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-
         <input
           className={style.input}
           type="text"
@@ -42,20 +49,23 @@ export const Registration = () => {
 
         <input
           className={style.input}
-          type="Password"
+          type="password"
           placeholder="Пароль"
           {...register("Password", { required: true, maxLength: 100 })}
         />
 
         <input
           className={style.input}
-          type="Password"
+          type="password"
           placeholder="Повторите пароль"
-          {...register("Password", { required: true, maxLength: 100 })}
+          {...register("rePassword", { required: true, maxLength: 100 })}
         />
 
-        <input className={style.submit} type="submit" value="Регистрация" />
-
+        {pass ? (
+          <input className='Btn' type="submit" value="Регистрация" />
+        ) : (
+          <input className='Btn' type="submit" value="Пароли разные" />
+        )}
       </form>
     </div>
   );

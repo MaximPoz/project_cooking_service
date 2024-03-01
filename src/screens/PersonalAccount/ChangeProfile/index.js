@@ -40,7 +40,7 @@ export const ChangeProfile = () => {
 
   return (
     <div className={style.personalAccount}>
-      <h2 className={style.welcome}>
+      <h2 className="welcome">
         {upperCase(user.name.firstname)} тут вы можете изменить свои личные
         данные
       </h2>
@@ -60,19 +60,19 @@ export const ChangeProfile = () => {
         <input
           className={style.changeInfo}
           type="text"
-          placeholder="First name"
+          placeholder="Введите новое Имя"
           {...register("First name", { required: true, maxLength: 80 })}
         />
         <input
           className={style.changeInfo}
           type="text"
-          placeholder="Email"
+          placeholder="Введите новый Email"
           {...register("Email", { required: true })}
         />
         <input
           className={style.changeInfo}
           type="tel"
-          placeholder="Mobile number"
+          placeholder="Введите новый номер телефона"
           {...register("Mobile number", {
             required: true,
             minLength: 6,
@@ -82,13 +82,13 @@ export const ChangeProfile = () => {
         <input
           className={style.changeInfo}
           type="password"
-          placeholder="Password"
+          placeholder="Введите новый пароль"
           {...register("Password", {
             required: true,
           })}
         />
 
-        <input className={style.changeBtn} type="submit" />
+        <input className='Btn' type="submit" />
       </form>
     </div>
   );
