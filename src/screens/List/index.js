@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
+import { Product } from "./allProduct";
 
 const API_PRODUCTS = "https://fakestoreapi.com/products";
 
 export const List = () => {
   const [items, setItems] = useState([]);
-
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -23,17 +23,11 @@ export const List = () => {
 
   return (
     <div>
-      {/* Применяем стиль к родительскому контейнеру */}
-      <h1 className="welcome">List of premises</h1>
+      <h1 className="welcome">Каталог</h1>
+       
       <div className={style.container}>
-        {items.map((item) => (
-          <div className={style.item} key={item.id}>
-            {/* Применяем стиль к каждому элементу */}
-            <img className={style.imageClass} src={item.image} alt="" />
-            <p className={style.textClass}>{item.title}</p>
-            <p className={style.textClass}>Цена за номер: ${item.price}</p>
-          </div>
-        ))}
+      {items.length !== 0 ? <Product items={items}/> : <h1 className="welcome">Loading...</h1>}
+
       </div>
     </div>
   );

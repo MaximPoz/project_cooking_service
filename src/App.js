@@ -12,10 +12,12 @@ import { EmailPassword } from "./screens/LogIn/EmailPassword";
 import { AboutUs } from "./screens/Footer/AboutUs";
 import { Contacts } from "./screens/Footer/Contacts";
 import { ChangeProfile } from "./screens/PersonalAccount/ChangeProfile";
+import { ProductPage } from "./screens/List/Product";
+import { useEffect, useState } from "react";
 
 export default function App() {
   let itemsList = [
-    { nameNav: "Список помещений", url: "list" },
+    { nameNav: "Список помещений", url: "" },
     { nameNav: "Личный кабинет", url: "personalAccount" },
     { nameNav: "Авторизация", url: "logIn" },
     { nameNav: "Регистрация", url: "reg" },
@@ -26,19 +28,26 @@ export default function App() {
     { nameNav: "Контакты", url: "contacts" },
   ];
 
+
+
   return (
     <BrowserRouter>
       <NavBar itemsList={itemsList} />
       <FootBar footer={footer} />
 
       <Routes>
+        <Route path="/" element={<List />} />
+        <Route path="/product/:id" element={<ProductPage />} />
+        
         <Route path="/logIn" element={<LogIn />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/emailPassword" element={<EmailPassword />} />
-        <Route path="/list" element={<List />} />
+
         <Route path="/personalAccount" element={<PersonalAccount />} />
         <Route path="/changeProfile" element={<ChangeProfile />} />
+
         <Route path="/reg" element={<Registration />} />
+
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/contacts" element={<Contacts />} />
       </Routes>
