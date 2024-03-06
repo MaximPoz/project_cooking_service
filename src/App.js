@@ -13,14 +13,23 @@ import { AboutUs } from "./screens/Footer/AboutUs";
 import { Contacts } from "./screens/Footer/Contacts";
 import { ChangeProfile } from "./screens/PersonalAccount/ChangeProfile";
 import { ProductPage } from "./screens/List/Product";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function App() {
-  let itemsList = [
+  const [isAuth, setIsAuth] = useState(false);
+  const updateState = (newState) => {
+    setIsAuth(newState);
+  };
+
+  let itemsListNoAuth = [
     { nameNav: "Список помещений", url: "project_cooking_service" },
-    { nameNav: "Личный кабинет", url: "personalAccount" },
     { nameNav: "Авторизация", url: "logIn" },
     { nameNav: "Регистрация", url: "reg" },
+  ];
+
+  let itemsListIsAuth = [
+    { nameNav: "Список помещений", url: "project_cooking_service" },
+    { nameNav: "Личный кабинет", url: "personalAccount" },
   ];
 
   let footer = [
@@ -30,7 +39,12 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <NavBar itemsList={itemsList} />
+      {isAuth === true ? (
+        <NavBar itemsList={itemsListIsAuth} />
+      ) : (
+        <NavBar itemsList={itemsListNoAuth} />
+      )}
+      
       <FootBar footer={footer} />
 
       <Routes>
@@ -40,14 +54,17 @@ export default function App() {
           element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
         />
 
-        <Route path="/logIn" element={<LogIn />} />
+        <Route path="/logIn" element={<LogIn updateState={updateState} />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/emailPassword" element={<EmailPassword />} />
 
-        <Route path="/personalAccount" element={<PersonalAccount />} />
+        <Route
+          path="/personalAccount"
+          element={<PersonalAccount isAuth={isAuth} />}
+        />
         <Route path="/changeProfile" element={<ChangeProfile />} />
 
-        <Route path="/reg" element={<Registration />} />
+        <Route path="/reg" element={<Registration isAuth={isAuth} />} />
 
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/contacts" element={<Contacts />} />
