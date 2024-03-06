@@ -3,10 +3,7 @@
     flex-wrap: wrap; /* Разрешаем элементам переноситься на новую строку при необходимости */
     text-align: center;
     margin: 20px 100px;
-    justify-content: space-around;
-    border: 1px solid rgb(155, 155, 155); 
-    border-radius: 20px;
-    
+    justify-content: space-around;   
 }
 
 .item {

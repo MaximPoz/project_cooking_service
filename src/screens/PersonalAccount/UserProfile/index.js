@@ -3,9 +3,9 @@ import style from "./style.module.css";
 
 export const PersonalAccount = () => {
   const [user, setUser] = useState({
-    name: "Max",
-    email: "maxmax@gmail.com",
-    phone: "+79990602832",
+    name: "Загрузка",
+    email: "Загрузка",
+    phone: "Загрузка",
   });
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const PersonalAccount = () => {
   const upperCase = (string) => {
     return string
       ? string.charAt(0).toUpperCase() + string.slice(1)
-      : "Че то там грузит";
+      : user.name;
   };
 
   return (

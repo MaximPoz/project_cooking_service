@@ -1,38 +1,29 @@
 .container {
-    display: flex; /* Устанавливаем родительскому контейнеру свойство display: flex */
-    flex-wrap: wrap; /* Разрешаем элементам переноситься на новую строку при необходимости */
-    text-align: center;
-    margin: 20px 100px;
-    justify-content: space-around;
-    border: 1px solid rgb(155, 155, 155); 
-    border-radius: 20px;
-    
-}
-
-.item {
-    display: flex; /* Устанавливаем каждому элементу свойство display: flex */
-    flex-direction: column; /* Устанавливаем направление элементов в колонку */
-    align-items: center; /* Выравниваем элементы по центру по горизонтали */
-    margin: 20px; /* Добавляем отступ между элементами */
-    border: 1px solid rgb(155, 155, 155); 
-    border-radius: 16px;
-    padding: 30px;
-    background: linear-gradient(0deg, #fde1ff 0%, #e1ffea22 60%);
-}
-
-.imageClass {
-    width: 200px; /* Устанавливаем ширину изображений */
-    height: 200px; /* Устанавливаем высоту изображений */
-}
-
-.textClass {
-    width: 100px; /* Устанавливаем ширину изображений */
-    height: 100px; /* Устанавливаем высоту изображений */
-    font-size: 15px;
-}
-
-.head{
     display: flex;
-    justify-content: center;
-    width: 100%;
-}
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .textClass {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .imageClass {
+    width: 500px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .priceClass {
+    font-size: 24px;
+    color: #007BFF;
+    font-weight: bold;
+  }
+  

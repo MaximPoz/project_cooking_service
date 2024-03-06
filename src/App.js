@@ -28,8 +28,6 @@ export default function App() {
     { nameNav: "Контакты", url: "contacts" },
   ];
 
-
-
   return (
     <BrowserRouter>
       <NavBar itemsList={itemsList} />
@@ -37,8 +35,11 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<List />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-        
+        <Route
+          path="/product/:id"
+          element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
+        />
+
         <Route path="/logIn" element={<LogIn />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/emailPassword" element={<EmailPassword />} />

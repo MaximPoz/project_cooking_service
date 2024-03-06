@@ -27,7 +27,7 @@ export const ChangeProfile = () => {
   const upperCase = (string) => {
     return string
       ? string.charAt(0).toUpperCase() + string.slice(1)
-      : "Че то там грузит";
+      : user.name;
   };
 
   const {
@@ -36,7 +36,7 @@ export const ChangeProfile = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data); //данные которые нужно отправить на сервер
-  // console.log(errors);
+
 
   return (
     <div className={style.personalAccount}>
