@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/project_cooking_service/static/css/main.71b34748.css",
+    "main.js": "/project_cooking_service/static/js/main.4b0f3a70.js",
+    "static/js/592.775b9c60.chunk.js": "/project_cooking_service/static/js/592.775b9c60.chunk.js",
+    "index.html": "/project_cooking_service/index.html",
+    "main.71b34748.css.map": "/project_cooking_service/static/css/main.71b34748.css.map",
+    "main.4b0f3a70.js.map": "/project_cooking_service/static/js/main.4b0f3a70.js.map",
+    "592.775b9c60.chunk.js.map": "/project_cooking_service/static/js/592.775b9c60.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.71b34748.css",
+    "static/js/main.4b0f3a70.js"
+  ]
+}
