@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   let itemsList = [
-    { nameNav: "Список помещений", url: "" },
+    { nameNav: "Список помещений", url: "project_cooking_service" },
     { nameNav: "Личный кабинет", url: "personalAccount" },
     { nameNav: "Авторизация", url: "logIn" },
     { nameNav: "Регистрация", url: "reg" },
@@ -34,7 +34,7 @@ export default function App() {
       <FootBar footer={footer} />
 
       <Routes>
-        <Route path="/" element={<List />} />
+        <Route path="/project_cooking_service" element={<List />} />
         <Route
           path="/product/:id"
           element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage

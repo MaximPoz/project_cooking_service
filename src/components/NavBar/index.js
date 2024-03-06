@@ -5,7 +5,15 @@ export const NavBar = ({ itemsList }) => {
   return (
     <div className={style.container}>
       <div className={style.nav}>
-          <img className={style.logo} src="/logo111.jpeg" alt="logo" />
+        
+        <Link to={"/project_cooking_service"}>
+          <img
+            className={style.logo}
+            src="/project_cooking_service/logo111.jpeg"
+            alt="mFlogo"
+          />
+        </Link>
+
         <p className={style.nameSite}>the magic of fashion</p>
         <div className={style.menu}>
           <ul>
