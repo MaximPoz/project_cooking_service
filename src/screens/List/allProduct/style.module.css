@@ -22,7 +22,7 @@
 }
 
 .item:hover {
-    background: linear-gradient(0deg, #a73535 0%, #e1ffea22 60%); /*градиент снизу - вверх*/
+    background: linear-gradient(0deg, #6b9760 0%, #ffede122 40%); /*градиент снизу - вверх*/
     box-shadow: 10px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
