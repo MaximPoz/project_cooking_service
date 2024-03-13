@@ -6,30 +6,3 @@
     justify-content: space-around;   
 }
 
-.item {
-    display: flex; /* Устанавливаем каждому элементу свойство display: flex */
-    flex-direction: column; /* Устанавливаем направление элементов в колонку */
-    align-items: center; /* Выравниваем элементы по центру по горизонтали */
-    margin: 20px; /* Добавляем отступ между элементами */
-    border: 1px solid rgb(155, 155, 155); 
-    border-radius: 16px;
-    padding: 30px;
-    background: linear-gradient(0deg, #fde1ff 0%, #e1ffea22 50%);
-}
-
-.imageClass {
-    width: 200px; /* Устанавливаем ширину изображений */
-    height: 200px; /* Устанавливаем высоту изображений */
-}
-
-.textClass {
-    width: 100px; /* Устанавливаем ширину изображений */
-    height: 100px; /* Устанавливаем высоту изображений */
-    font-size: 15px;
-}
-
-.head{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
