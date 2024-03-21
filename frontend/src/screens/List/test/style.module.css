@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  margin: 10px;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+}
+
+.item{
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+  
