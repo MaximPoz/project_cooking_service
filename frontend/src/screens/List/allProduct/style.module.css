@@ -11,7 +11,7 @@
 }
 
 .item {
-  display: flex; /* Устанавливаем каждому элементу свойство display: flex */
+  width: 300px;
   flex-direction: column; /* Устанавливаем направление элементов в колонку */
   align-items: center; /* Выравниваем элементы по центру по горизонтали */
   margin: 20px; /* Добавляем отступ между элементами */
@@ -25,6 +25,12 @@
   ); /*градиент снизу - вверх*/
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
 
+}
+
+.item img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .item:hover {
@@ -44,8 +50,6 @@
 }
 
 .textClass {
-  width: 200px;
-  height: 100px;
   font-size: 15px;
   color: black;
 }
