@@ -1,29 +1,39 @@
 import mongoose from "mongoose";
 
-
 const houseSchema = mongoose.Schema(
-    {
-      title: {
-        type: String,
-        required: true,
-      },   
-      author: {
-        type: String,
-        required: true,
-      },  
-      publishYear: {
-        type: Number,
-        required: true,
-      },  
-      img: {
-        type: String,
-        required: false,
-      }, 
+  {
+    title: {
+      type: String,
+      required: true,
     },
-    {
-        timestamps: true
-    }
-)
-
+    price: {
+      type: Number,
+      required: true,
+    },
+    area: {
+      type: Number,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    img: {
+      type: String,
+      required: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export const House = mongoose.model('House', houseSchema);

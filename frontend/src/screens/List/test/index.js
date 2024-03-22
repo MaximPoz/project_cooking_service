@@ -15,7 +15,7 @@ export const TestComponent = () => {
         console.log(`Данные получены c API_MAX: ${data.count} объектов`);
 
         setHouse(data);
-        console.log(data.data)
+        console.log(data.data);
       } catch (error) {
         console.error(error);
       }
@@ -26,12 +26,14 @@ export const TestComponent = () => {
   return (
     <div className={style.container}>
       {house.data &&
-        house.data.map(({ author, publishYear, title, img }) => (
+        house.data.map(({ price, area, title, img, address, description }) => (
           <div className={style.item} key={title}>
+            <img src={img} alt="тут должна быть картинка какого-то помещения" />
             <p className={style.textClass}>{title}</p>
-            <p className={style.textClass}>Автор: {author}</p>
-            <p className={style.textClass}>Год публикации: {publishYear}</p>
-            <img src={img} alt="img" />
+            <p className={style.textClass}>Цена за сутки: {price}</p>
+            <p className={style.textClass}>Площадь: {area}</p>
+            <p className={style.textClass}>Адрес: {address}</p>
+            <p className={style.textClass}>Описание: {description}</p>
           </div>
         ))}
     </div>

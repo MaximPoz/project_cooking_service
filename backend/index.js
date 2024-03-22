@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import cors from 'cors'
 
 import { PORT, mongoDBURL } from "./config.js";
-import { House } from "./models/houseModel.js";
 import housesRoute from "./routes/housesRoute.js";
 
 // Создание экземпляра приложения Express
@@ -12,7 +11,10 @@ const app = express();
 // Использование middleware для обработки входящих запросов в формате JSON
 app.use(express.json());
 
-//Даём доступ к localhost:3000 и методам
+//включаем `CORS` для всех запросов
+app.use(cors())
+
+//включаем `CORS` для localhost:3000 и методам
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -24,8 +26,9 @@ app.use(
 // Обработчик маршрута GET "/" для приветственного сообщения
 app.get("/", (request, response) => {
   console.log(request);
-  return response.status(234).send("До");
+  return response.status(234).send("Добро пожаловать!");
 });
+
 
 //Для каждого запроса с префиксом "/houses", будут обрабатываться в соответствии с логикой, определенной в роутере housesRoute
 app.use('/houses', housesRoute);

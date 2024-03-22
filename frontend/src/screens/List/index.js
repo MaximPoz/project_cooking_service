@@ -4,7 +4,7 @@ import { Product } from "./allProduct";
 import { ToolBar } from "../../components/ToolBar/ToolBar";
 import { TestComponent } from "./test";
 
-const API_PRODUCTS = "https://fakestoreapi.com/products";
+const API_PRODUCTS = "https://fakestoreapi.com/products1";
 
 export const List = () => {
   const [items, setItems] = useState([]);

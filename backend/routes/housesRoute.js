@@ -1,27 +1,35 @@
 import express from "express";
-import { House } from '../models/houseModel.js'
+import { House } from "../models/houseModel.js";
 
 const router = express.Router();
 
+
 // Обработчик маршрута POST "/house" для создания нового дома
-router.post("/house", async (request, response) => {
+router.post("/", async (request, response) => {
   try {
     // Проверка наличия обязательных полей в теле запроса
     if (
       !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
+      !request.body.price ||
+      !request.body.area ||
+      !request.body.address ||
+      !request.body.description ||
+      !request.body.category
     ) {
       // Если обязательные поля отсутствуют, возвращается ошибка 400
       return response.status(400).send({
-        message: "Нужно отправить все поля: title, author, publishYear",
+        message: "Нужно отправить все поля: title, price, area, address, description, img and category",
       });
     }
     // Создание нового дома на основе данных из тела запроса
     const newHouse = {
       title: request.body.title,
-      author: request.body.author,
-      publishYear: request.body.publishYear,
+      price: request.body.price,
+      area: request.body.area,
+      address: request.body.address,
+      description: request.body.description,
+      img: request.body.img,
+      category: request.body.category
     };
     // Создание объекта дома в базе данных и получение созданного объекта
     const house = await House.create(newHouse);
@@ -72,8 +80,11 @@ router.put("/:id", async (request, response) => {
   try {
     if (
       !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
+      !request.body.price ||
+      !request.body.area ||
+      !request.body.address ||
+      !request.body.category ||
+      !request.body.description
     ) {
       // Если обязательные поля отсутствуют, возвращается ошибка 400
       return response.status(400).send({
