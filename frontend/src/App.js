@@ -49,11 +49,7 @@ export default function App() {
 
       <Routes>
         <Route path="/project_cooking_service" element={<List />} />
-        <Route
-          path="/product/:id"
-          element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
-        />
-
+       
         <Route path="/logIn" element={<LogIn updateState={updateState} />} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/emailPassword" element={<EmailPassword />} />
@@ -68,6 +64,11 @@ export default function App() {
 
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/contacts" element={<Contacts />} />
+
+        <Route
+          path="/:_id"
+          element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
+        />
       </Routes>
     </BrowserRouter>
   );

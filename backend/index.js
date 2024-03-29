@@ -1,12 +1,20 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from 'cors'
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
-import { PORT, mongoDBURL } from "./config.js";
+
 import housesRoute from "./routes/housesRoute.js";
+import userRoute from "./routes/userRoute.js";
+
 
 // Создание экземпляра приложения Express
 const app = express();
+
+const port = process.env.PORT;
+const DBURL = process.env.DBURL;
+
+app.use(cookieParser());
 
 // Использование middleware для обработки входящих запросов в формате JSON
 app.use(express.json());
@@ -14,14 +22,18 @@ app.use(express.json());
 //включаем `CORS` для всех запросов
 app.use(cors())
 
+//Для каждого запроса с префиксом "/houses", будут обрабатываться в соответствии с логикой, определенной в роутере housesRoute
+app.use('/houses', housesRoute);
+app.use('/users', userRoute);
+
 //включаем `CORS` для localhost:3000 и методам
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type"],
+//   })
+// );
 
 // Обработчик маршрута GET "/" для приветственного сообщения
 app.get("/", (request, response) => {
@@ -30,22 +42,16 @@ app.get("/", (request, response) => {
 });
 
 
-//Для каждого запроса с префиксом "/houses", будут обрабатываться в соответствии с логикой, определенной в роутере housesRoute
-app.use('/houses', housesRoute);
-
-
 // Подключение к базе данных MongoDB
 mongoose
-  .connect(mongoDBURL)
+  .connect(DBURL)
   .then(() => {
-    // Вывод сообщения об успешном подключении к базе данных
     console.log("База данных подключена");
     // Запуск сервера на указанном порте
-    app.listen(PORT, () => {
-      console.log(`Порт ${PORT} запущен, можете работать.`);
+    app.listen(port, () => {
+      console.log(`Порт ${port} запущен, можете работать.`);
     });
   })
   .catch((error) => {
-    // Обработка ошибки, если не удалось подключиться к базе данных
     console.log(error);
   });

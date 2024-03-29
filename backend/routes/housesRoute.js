@@ -6,15 +6,17 @@ const router = express.Router();
 
 // Обработчик маршрута POST "/house" для создания нового дома
 router.post("/", async (request, response) => {
+  const{title, price, area, address, description, category, img} = request.body;
   try {
     // Проверка наличия обязательных полей в теле запроса
     if (
-      !request.body.title ||
-      !request.body.price ||
-      !request.body.area ||
-      !request.body.address ||
-      !request.body.description ||
-      !request.body.category
+      !title ||
+      !price ||
+      !area ||
+      !address ||
+      !description ||
+      !category ||
+      !img
     ) {
       // Если обязательные поля отсутствуют, возвращается ошибка 400
       return response.status(400).send({
@@ -23,13 +25,13 @@ router.post("/", async (request, response) => {
     }
     // Создание нового дома на основе данных из тела запроса
     const newHouse = {
-      title: request.body.title,
-      price: request.body.price,
-      area: request.body.area,
-      address: request.body.address,
-      description: request.body.description,
-      img: request.body.img,
-      category: request.body.category
+      title: title,
+      price: price,
+      area: area,
+      address: address,
+      description: description,
+      img: img,
+      category: category
     };
     // Создание объекта дома в базе данных и получение созданного объекта
     const house = await House.create(newHouse);
@@ -37,7 +39,7 @@ router.post("/", async (request, response) => {
     return response.status(201).send(house);
   } catch (error) {
     // Обработка ошибки, если что-то пошло не так при создании дома
-    console.log(error.message);
+    console.log(`Что то пошло не так ${error.message}`);
     // Отправка сообщения об ошибке в ответе с кодом состояния 500
     response.status(500).send({ message: error.message });
   }
@@ -61,11 +63,11 @@ router.get("/", async (request, response) => {
   }
 });
 
-//Получение одной карточки дома по id
-router.get("/:id", async (request, response) => {
+// Получение одной карточки дома по id
+router.get("/:_id", async (request, response) => {
   try {
-    const { id } = request.params;
-    const house = await House.findById(id);
+    const { _id } = request.params;
+    const house = await House.findById({_id});
 
     return response.status(200).json(house);
   } catch (error) {
@@ -74,6 +76,26 @@ router.get("/:id", async (request, response) => {
     response.status(500).send({ message: error.message });
   }
 });
+
+// router.get("/:_id", async (request, response) => {
+//   try {
+//     const { id } = request.params;
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//       return response.status(400).json({ message: "Неверный формат идентификатора" });
+//     }
+    
+//     const house = await House.findOne({ _id: mongoose.Types.ObjectId(id) });
+
+//     if (!house) {
+//       return response.status(404).json({ message: "Дом не найден" });
+//     }
+
+//     return response.status(200).json(house);
+//   } catch (error) {
+//     console.error(error.message);
+//     response.status(500).send({ message: error.message });
+//   }
+// });
 
 //Обновления данных в карточке дома по id
 router.put("/:id", async (request, response) => {

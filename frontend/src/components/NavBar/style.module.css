@@ -1,9 +1,9 @@
 .container {
   width: 100%;
-  background-color: #333;
+  background-color: #082c42;
   font-size: 20px; /* Увеличиваем размер шрифта */
   font-weight: bold; /* Делаем текст жирным */
-  color: #ff6347; /* Изменяем цвет текста на томатный */
+  color: #da7e51; /* Изменяем цвет текста на томатный */
   letter-spacing: 2px; /* Увеличиваем расстояние между буквами */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень к тексту */
   padding-top: 100px;
@@ -14,7 +14,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #333;
+  background-color: #082c42;
   z-index: 1000; /* Убедитесь, что z-index выше, чем у других элементов на странице */
   display: flex;
   justify-content: space-between;
@@ -51,17 +51,18 @@
   font-family: "Roboto", sans-serif;
   font-weight: 100;
   font-style: normal;
+  font-size: 22px;
 }
 
 .menu li a:hover {
-  color: #ff0; /* Change to desired hover color */
+  color: #da7e51; /* Change to desired hover color */
 }
 
 .nameSite {
   display: flex;
   font-size: 24px; /* Увеличиваем размер шрифта */
   font-weight: bold; /* Делаем текст жирным */
-  color: #ff6347; /* Изменяем цвет текста на томатный */
+  color: #da7e51; /* Изменяем цвет текста на томатный */
   text-transform: uppercase; /* Преобразуем текст в верхний регистр */
   letter-spacing: 2px; /* Увеличиваем расстояние между буквами */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень к тексту */
