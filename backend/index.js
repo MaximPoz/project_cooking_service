@@ -20,20 +20,22 @@ app.use(cookieParser());
 app.use(express.json());
 
 //включаем `CORS` для всех запросов
-app.use(cors())
+// app.use(cors())
+
+//включаем `CORS` для localhost:3000 и методам
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
 
 //Для каждого запроса с префиксом "/houses", будут обрабатываться в соответствии с логикой, определенной в роутере housesRoute
 app.use('/houses', housesRoute);
 app.use('/users', userRoute);
 
-//включаем `CORS` для localhost:3000 и методам
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type"],
-//   })
-// );
 
 // Обработчик маршрута GET "/" для приветственного сообщения
 app.get("/", (request, response) => {

@@ -1,37 +1,29 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import axios from "axios";
 import style from "./style.module.css";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 export const LogIn = ({ updateState }) => {
+  axios.defaults.withCredentials = true;
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    try {
-      const userLogin = {
-        username: data.Email,
-        password: data.Password,
-      };
-
-      const response = await fetch("https://fakestoreapi.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userLogin),
-      });
-
-      const json = await response.json();
-      console.log(json);
-
-      updateState(true); 
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  const onSubmit = async ({email, password}) => {
+    console.log(email, password)
+    axios
+      .post("http://localhost:5555/users/login", {email, password})
+      .then((res) => {
+        console.log(res.data);
+        updateState(true);
+        navigate("/personalAccount");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -43,14 +35,14 @@ export const LogIn = ({ updateState }) => {
           className={style.input}
           type="text"
           placeholder="Электронная почта"
-          {...register("Email", { required: true,  })}
+          {...register("email", { required: true })}
         />
 
         <input
           className={style.input}
           type="Password"
           placeholder="Пароль"
-          {...register("Password", { required: true, maxLength: 100 })}
+          {...register("password", { required: true, maxLength: 100 })}
         />
 
         <input className="Btn" type="submit" value="Отправить" />
