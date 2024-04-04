@@ -6,27 +6,27 @@ import { EmailPassword } from "../EmailPassword";
 
 //!Отправка данных на сервер
 const sendEmail = async (email, message) => {
-  try {
-    const response = await fetch('/send-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        message: message,
-      }),
-    });
-    console.log(email, message)
+  // try {
+  //   const response = await fetch('/send-email', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       email: email,
+  //       message: message,
+  //     }),
+  //   });
+  //   console.log(email, message)
 
-    if (response.ok) {
-      console.log('Email sent successfully!');
-    } else {
-      console.error('Failed to send email:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
+  //   if (response.ok) {
+  //     console.log('Email sent successfully!');
+  //   } else {
+  //     console.error('Failed to send email:', response.statusText);
+  //   }
+  // } catch (error) {
+  //   console.error('Error sending email:', error);
+  // }
 };
 
 

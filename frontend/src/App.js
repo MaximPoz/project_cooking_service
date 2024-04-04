@@ -5,8 +5,9 @@ import { LogIn } from "./screens/LogIn";
 import { List } from "./screens/List";
 import { PersonalAccount } from "./screens/PersonalAccount/UserProfile";
 import { Registration } from "./screens/Registration";
+import { Toaster } from "react-hot-toast";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
 import { ChangePassword } from "./screens/LogIn/ChangePassword";
 import { EmailPassword } from "./screens/LogIn/EmailPassword";
 import { AboutUs } from "./screens/Footer/AboutUs";
@@ -14,6 +15,8 @@ import { Contacts } from "./screens/Footer/Contacts";
 import { ChangeProfile } from "./screens/PersonalAccount/ChangeProfile";
 import { ProductPage } from "./screens/List/Product";
 import { useState } from "react";
+import { RegSuccess } from "./screens/Registration/resSuccess";
+import { UserContextProvider } from "./context/userContext";
 
 export default function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -38,38 +41,41 @@ export default function App() {
   ];
 
   return (
-    <BrowserRouter>
-      {isAuth === true ? (
-        <NavBar itemsList={itemsListIsAuth} />
-      ) : (
-        <NavBar itemsList={itemsListNoAuth} />
-      )}
-      
-      <FootBar footer={footer} />
+    <UserContextProvider>
+        <Toaster position="top-right" gutter={10} />
 
-      <Routes>
-        <Route path="/project_cooking_service" element={<List />} />
-       
-        <Route path="/logIn" element={<LogIn updateState={updateState} />} />
-        <Route path="/changePassword" element={<ChangePassword />} />
-        <Route path="/emailPassword" element={<EmailPassword />} />
+        {isAuth === true ? (
+          <NavBar itemsList={itemsListIsAuth} />
+        ) : (
+          <NavBar itemsList={itemsListNoAuth} />
+        )}
 
-        <Route
-          path="/personalAccount"
-          element={<PersonalAccount isAuth={isAuth} />}
-        />
-        <Route path="/changeProfile" element={<ChangeProfile />} />
+        <FootBar footer={footer} />
 
-        <Route path="/reg" element={<Registration isAuth={isAuth} />} />
+        <Routes>
+          <Route path="/project_cooking_service" element={<List />} />
 
-        <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/contacts" element={<Contacts />} />
+          <Route path="/logIn" element={<LogIn updateState={updateState} />} />
+          <Route path="/changePassword" element={<ChangePassword />} />
+          <Route path="/emailPassword" element={<EmailPassword />} />
 
-        <Route
-          path="/:_id"
-          element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
-        />
-      </Routes>
-    </BrowserRouter>
+          <Route
+            path="/personalAccount"
+            element={<PersonalAccount isAuth={isAuth} />}
+          />
+          <Route path="/changeProfile" element={<ChangeProfile />} />
+
+          <Route path="/reg" element={<Registration isAuth={isAuth} />} />
+          <Route path="/regSuccess" element={<RegSuccess />} />
+
+          <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/contacts" element={<Contacts />} />
+
+          <Route
+            path="/:_id"
+            element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
+          />
+        </Routes>
+    </UserContextProvider>
   );
 }

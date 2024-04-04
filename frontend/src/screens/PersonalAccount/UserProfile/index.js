@@ -8,20 +8,20 @@ export const PersonalAccount = () => {
     phone: "Загрузка",
   });
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const result = await fetch("https://fakestoreapi.com/users/1");
-        const data = await result.json();
-        // console.log(data)
-        setUser(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const result = await fetch("https://localhost:5555/users/profile");
+  //       const data = await result.json();
+  //       // console.log(data)
+  //       setUser(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    fetchUser();
-  }, []);
+  //   fetchUser();
+  // }, []);
 
   const upperCase = (string) => {
     return string

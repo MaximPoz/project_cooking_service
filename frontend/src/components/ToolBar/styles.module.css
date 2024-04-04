@@ -2,7 +2,6 @@
 
 .toolbar {
     padding: 10px;
-    background-color: #f0f0f0;
     text-align: center;
   }
   
@@ -18,7 +17,7 @@
     margin-right: 10px;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #ccc;
+    background-color: #eeeeee;
   }
   
   .filterElement:hover {

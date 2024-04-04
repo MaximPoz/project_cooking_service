@@ -3,10 +3,11 @@ import axios from "axios";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const LogIn = ({ updateState }) => {
   axios.defaults.withCredentials = true;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     register,
@@ -14,16 +15,32 @@ export const LogIn = ({ updateState }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async ({email, password}) => {
-    console.log(email, password)
+  const onSubmit = async ({ email, password }) => {
     axios
-      .post("http://localhost:5555/users/login", {email, password})
+      .post("http://localhost:5555/users/login", { email, password })
       .then((res) => {
-        console.log(res.data);
         updateState(true);
         navigate("/personalAccount");
       })
-      .catch((err) => console.error(err));
+      .catch((error) => {
+        if (error.response.status === 405) { //Во жесть тут xD
+          console.error(error.response.data.message);
+          toast(
+            (t) => (
+              <span>
+                Забыли пароль?¯\_(ツ)_/¯ Восстановим! 😀
+                <button
+                  className={style.btn}
+                  onClick={() => toast.dismiss(navigate("/changePassword"))}
+                >
+                  Жми сюда!
+                </button>
+              </span>
+            ),
+            { duration: 8000 }
+          );
+        }
+      });
   };
 
   return (
@@ -37,13 +54,24 @@ export const LogIn = ({ updateState }) => {
           placeholder="Электронная почта"
           {...register("email", { required: true })}
         />
+        {errors.email && (
+          <span className={style.error}>
+            Поле "Электронная почта" обязательно для заполнения и должно быть в
+            формате example@example.com
+          </span>
+        )}
 
         <input
           className={style.input}
-          type="Password"
+          type="password"
           placeholder="Пароль"
           {...register("password", { required: true, maxLength: 100 })}
         />
+        {errors.password && (
+          <span className={style.error}>
+            Пароль должен содержать не менее 8 символов
+          </span>
+        )}
 
         <input className="Btn" type="submit" value="Отправить" />
       </form>

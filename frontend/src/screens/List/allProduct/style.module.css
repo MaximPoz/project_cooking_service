@@ -1,30 +1,21 @@
 .container {
-  display: flex; /* Устанавливаем родительскому контейнеру свойство display: flex */
-  flex-wrap: wrap; /* Разрешаем элементам переноситься на новую строку при необходимости */
+  display: flex;
+  flex-wrap: wrap;
   text-align: center;
   margin: 20px 100px;
   justify-content: space-around;
-  border: 1px solid rgb(192, 192, 192);
   border-radius: 20px;
-  box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.1);
-
 }
 
 .item {
   width: 300px;
-  flex-direction: column; /* Устанавливаем направление элементов в колонку */
-  align-items: center; /* Выравниваем элементы по центру по горизонтали */
-  margin: 20px; /* Добавляем отступ между элементами */
-  border: 1px solid rgb(155, 155, 155);
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+
   border-radius: 16px;
   padding: 10px;
-  background: linear-gradient(
-    0deg,
-    #fde1ff 0%,
-    #e1ffea22 60%
-  ); /*градиент снизу - вверх*/
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-
 }
 
 .item img {
@@ -35,19 +26,19 @@
 }
 
 .item:hover {
-  background: linear-gradient(
+  /*градиент снизу - вверх*/
+  /* background: linear-gradient(
     0deg,
-    #6b9760 0%,
+    #7388ad 0%,
     #ffede122 40%
-  ); /*градиент снизу - вверх*/
+  );  */
   box-shadow: 10px 2px 5px rgba(0, 0, 0, 0.1);
-
+  border: 1px solid rgb(212, 212, 212);
 }
 
 .imageClass {
-  width: 200px; /* Устанавливаем ширину изображений */
-  height: 200px; /* Устанавливаем высоту изображений */
-
+  width: 200px;
+  height: 200px;
 }
 
 .textClass {
@@ -56,16 +47,15 @@
 }
 
 .textClass:hover {
-    color: #041983;
+  color: #da7e51;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .head {
   display: flex;
   justify-content: center;
   width: 100%;
-
 }

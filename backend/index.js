@@ -15,6 +15,8 @@ const port = process.env.PORT;
 const DBURL = process.env.DBURL;
 
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: false}));
+
 
 // Использование middleware для обработки входящих запросов в формате JSON
 app.use(express.json());
