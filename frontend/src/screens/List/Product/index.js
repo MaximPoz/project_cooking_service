@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export const ProductPage = () => {
   const { _id } = useParams();
-
+  console.log(_id);
   const API_PRODUCTS = "http://localhost:5555/houses";
 
   const [item, setItem] = useState({});
@@ -13,10 +14,8 @@ export const ProductPage = () => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        let response = await fetch(`${API_PRODUCTS}/${_id}`); //Из APP мы забираем с помощью параметров id (который передали компоненте) и присваеваем запросу API
-        let data = await response.json();
-        setItem(data);
-        console.log(data);
+        const response = await axios.get(`${API_PRODUCTS}/${_id}`); //Из APP мы забираем с помощью параметров id (который передали компоненте) и присваеваем запросу API
+        setItem(response.data);
       } catch (error) {
         console.error(error);
       }

@@ -69,6 +69,19 @@ router.post("/login", async (request, response) => {
 });
 
 
+router.get("/:_id", async (request, response) => {
+  try {
+    const { _id } = request.params;
+    const house = await User.findById({_id});
+
+    return response.status(200).json(house);
+  } catch (error) {
+    console.log(error.message);
+
+    response.status(500).send({ message: error.message });
+  }
+});
+
 
 const getProfile = async (req, res) => {
   const { token } = req.cookies;

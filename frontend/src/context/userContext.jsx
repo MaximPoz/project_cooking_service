@@ -1,26 +1,26 @@
-import axios from "axios";
-import { createContext, useState, useEffect } from "react";
+// import axios from "axios";
+// import { createContext, useState, useEffect } from "react";
 
-export const UserContext = createContext({});
+// export const UserContext = createContext({});
 
-export function UserContextProvider({ children }) {
-  const [user, setUser] = useState(null);
-
-
-  useEffect(() => {
-    if (!user) {
-      axios.get("http://localhost:5555/users/profile").then(({ data }) => {
-        setUser(data);
-      });
-    }
-
-  }, []);
+// export function UserContextProvider({ children }) {
+//   const [user, setUser] = useState(null);
 
 
+//   useEffect(() => {
+//     if (!user) {
+//       axios.get("http://localhost:5555/users/profile").then(({ data }) => {
+//         setUser(data);
+//       });
+//     }
 
-  return (
-    <UserContext.Provider value={{user, setUser}}>
-      {children}
-    </UserContext.Provider>
-  );
-}
+//   }, []);
+
+
+
+//   return (
+//     <UserContext.Provider value={{user, setUser}}>
+//       {children}
+//     </UserContext.Provider>
+//   );
+// }

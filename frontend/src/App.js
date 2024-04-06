@@ -20,9 +20,13 @@ import { UserContextProvider } from "./context/userContext";
 
 export default function App() {
   const [isAuth, setIsAuth] = useState(false);
+
+  
   const updateState = (newState) => {
     setIsAuth(newState);
   };
+
+
 
   let itemsListNoAuth = [
     { nameNav: "Список помещений", url: "project_cooking_service" },
@@ -41,7 +45,7 @@ export default function App() {
   ];
 
   return (
-    <UserContextProvider>
+    <>
         <Toaster position="top-right" gutter={10} />
 
         {isAuth === true ? (
@@ -76,6 +80,6 @@ export default function App() {
             element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
           />
         </Routes>
-    </UserContextProvider>
+    </>
   );
 }

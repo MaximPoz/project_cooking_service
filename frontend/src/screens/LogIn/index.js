@@ -4,6 +4,7 @@ import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import {jwtDecode} from "jwt-decode";
 
 export const LogIn = ({ updateState }) => {
   axios.defaults.withCredentials = true;
@@ -19,11 +20,31 @@ export const LogIn = ({ updateState }) => {
     axios
       .post("http://localhost:5555/users/login", { email, password })
       .then((res) => {
+
+        // Получение токена из куки
+        const getTokenFromCookie = () => {
+          const token = document.cookie
+            .split(";")
+            .find((cookie) => cookie.trim().startsWith("token="));
+          if (token) {
+            return token.split("=")[1];
+          } else {
+            return null;
+          }
+        };
+
+        // Использование функции для получения токена
+        const token = getTokenFromCookie();
+        localStorage.setItem('token', token);
+
+
+
         updateState(true);
         navigate("/personalAccount");
       })
       .catch((error) => {
-        if (error.response.status === 405) { //Во жесть тут xD
+        if (error.response.status === 405) {
+          //Во жесть тут xD
           console.error(error.response.data.message);
           toast(
             (t) => (

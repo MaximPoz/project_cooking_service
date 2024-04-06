@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import { Product } from "./allProduct";
 import { ToolBar } from "../../components/ToolBar/ToolBar";
+import axios from "axios";
 
 
 const API_PRODUCTS = "http://localhost:5555/houses";
@@ -14,12 +15,9 @@ export const List = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        let response = await fetch(API_PRODUCTS);
-        let data = await response.json();
-        console.log(`Данные получены c API_MAX: ${data.length} объектов`);
-
-        setItems(data);
-        console.log(data);
+        let response = await axios.get(API_PRODUCTS);
+        setItems(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -27,7 +25,6 @@ export const List = () => {
     fetchItems();
   }, []);
 
-  console.log(items.data);
 
   const filteredItems =
   selected === "All"
