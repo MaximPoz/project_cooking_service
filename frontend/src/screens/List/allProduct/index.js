@@ -8,7 +8,7 @@ export const Product = ({ items }) => {
       {items &&
         items.map(
           (
-            { price, title, img, _id } //короче, тут URL присваевается id (далее в APP)
+            { price, title, img, _id, area, address, description } //короче, тут URL присваевается id (далее в APP)
           ) => (
             <Link to={`/${_id}`} key={_id}>
               <div className={style.item} key={title}>
@@ -20,6 +20,9 @@ export const Product = ({ items }) => {
                   <b>{title}</b>
                 </p>
                 <p className={style.textClass}>Цена за сутки: {price} рублей</p>
+                <p className={style.textClass}>Площадь: {area} м²</p>
+                <p className={style.textClass}>Адрес: {address} </p>
+                <p className={style.textClass}>Описание: {description}</p>
               </div>
             </Link>
           )

@@ -7,12 +7,12 @@ const router = express.Router();
 
 const jwt_secret = process.env.JWT_SECRET;
 
-// Обработчик маршрута POST "/users" для создания нового пользователя
+//!Обработчик маршрута POST "/users" для создания нового пользователя
 router.post("/registration", async (request, response) => {
   const { firstName, email, mobileNumber, password } = request.body;
-  const user = await User.findOne({ email });
+  const userEmail = await User.findOne({ email });
 
-  if (user) {
+  if (userEmail) {
     return response
       .status(409)
       .json({ message: "Пользователь уже существует" });
@@ -29,7 +29,7 @@ router.post("/registration", async (request, response) => {
   return response.json({ message: "Пользователь успешно создан" });
 });
 
-//Авторизация
+//!Авторизация
 router.post("/login", async (request, response) => {
   const { email, password } = request.body;
 
@@ -68,13 +68,13 @@ router.post("/login", async (request, response) => {
   }
 });
 
-
+//! Получение пользователя по id
 router.get("/:_id", async (request, response) => {
   try {
     const { _id } = request.params;
-    const house = await User.findById({_id});
+    const user = await User.findById({_id});
 
-    return response.status(200).json(house);
+    return response.status(200).json(user);
   } catch (error) {
     console.log(error.message);
 
@@ -82,20 +82,39 @@ router.get("/:_id", async (request, response) => {
   }
 });
 
+//!Обновления данных в карточке пользователя по id
+router.put("/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const result = await User.findByIdAndUpdate(id, request.body);
 
-const getProfile = async (req, res) => {
-  const { token } = req.cookies;
-  if (token) {
-    jwt.verify(token, jwt_secret, {}, (err, user) => {
-      if (err) throw err;
-      res.json(user);
-    });
-  } else {
-    res.json(null);
+    if (!result) {
+      return response.status(404).send({ message: "Карточка пользователя не найдена" });
+    }
+
+    return response
+      .status(200)
+      .send({ message: "Карточка пользователя успешно обновлена" });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: `Ошибка: ${error.message}` });
   }
-}
+});
 
-router.get("/profile", getProfile)
+
+
+// const getProfile = async (req, res) => {
+//   const { token } = req.cookies;
+//   if (token) {
+//     jwt.verify(token, jwt_secret, {}, (err, user) => {
+//       if (err) throw err;
+//       res.json(user);
+//     });
+//   } else {
+//     res.json(null);
+//   }
+// }
+// router.get("/profile", getProfile)
 
 
 export default router;

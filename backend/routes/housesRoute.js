@@ -77,27 +77,8 @@ router.get("/:_id", async (request, response) => {
   }
 });
 
-// router.get("/:_id", async (request, response) => {
-//   try {
-//     const { id } = request.params;
-//     if (!mongoose.Types.ObjectId.isValid(id)) {
-//       return response.status(400).json({ message: "Неверный формат идентификатора" });
-//     }
-    
-//     const house = await House.findOne({ _id: mongoose.Types.ObjectId(id) });
 
-//     if (!house) {
-//       return response.status(404).json({ message: "Дом не найден" });
-//     }
-
-//     return response.status(200).json(house);
-//   } catch (error) {
-//     console.error(error.message);
-//     response.status(500).send({ message: error.message });
-//   }
-// });
-
-//Обновления данных в карточке дома по id
+//!Обновления данных в карточке дома по id
 router.put("/:id", async (request, response) => {
   try {
     if (
