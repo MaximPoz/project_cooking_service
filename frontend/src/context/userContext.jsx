@@ -5,10 +5,10 @@
 
 // export function UserContextProvider({ children }) {
 //   const [user, setUser] = useState(null);
-
+//   const token = localStorage.getItem("myToken")
 
 //   useEffect(() => {
-//     if (!user) {
+//     if (token) {
 //       axios.get("http://localhost:5555/users/profile").then(({ data }) => {
 //         setUser(data);
 //       });

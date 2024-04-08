@@ -19,13 +19,17 @@ import { RegSuccess } from "./screens/Registration/resSuccess";
 import { UserContextProvider } from "./context/userContext";
 
 export default function App() {
-  const [isAuth, setIsAuth] = useState(false);
+  // Получаем значение isAuth из локального хранилища при загрузке компонента
+  const [isAuth, setIsAuth] = useState(() => {
+    const storedIsAuth = localStorage.getItem('isAuth');
+    return storedIsAuth === 'true';
+  });
 
-  
+  // Функция для обновления состояния и сохранения его в локальном хранилище
   const updateState = (newState) => {
     setIsAuth(newState);
+    localStorage.setItem('isAuth', newState.toString());
   };
-
 
 
   let itemsListNoAuth = [
@@ -65,7 +69,7 @@ export default function App() {
 
           <Route
             path="/personalAccount"
-            element={<PersonalAccount isAuth={isAuth} />}
+            element={<PersonalAccount isAuth={isAuth} updateState={updateState}/>}
           />
           <Route path="/changeProfile" element={<ChangeProfile />} />
 
