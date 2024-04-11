@@ -16,7 +16,6 @@ import { ChangeProfile } from "./screens/PersonalAccount/ChangeProfile";
 import { ProductPage } from "./screens/List/Product";
 import { useState } from "react";
 import { RegSuccess } from "./screens/Registration/resSuccess";
-import { UserContextProvider } from "./context/userContext";
 
 export default function App() {
   // Получаем значение isAuth из локального хранилища при загрузке компонента
