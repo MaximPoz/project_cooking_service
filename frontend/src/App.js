@@ -80,7 +80,7 @@ export default function App() {
 
           <Route
             path="/:_id"
-            element={<ProductPage />} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
+            element={<ProductPage  isAuth={isAuth}/>} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
           />
         </Routes>
     </>

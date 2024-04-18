@@ -7,9 +7,34 @@ const router = express.Router();
 
 const jwt_secret = process.env.JWT_SECRET;
 
+const validateData = (data) => {
+  const errors = {};
+  // Проводим валидацию данных
+  if (!data.firstName || data.firstName.length < 3) {
+    errors.firstName = "Имя пользователя должно содержать не менее 3 символов.";
+  }
+  if (!data.email || !data.email.includes("@")) {
+    errors.email = "Укажите корректный адрес электронной почты.";
+  }
+  if (!data.mobileNumber || data.mobileNumber.length < 6 || data.mobileNumber.length > 12){
+    errors.mobileNumber = "Номер телефона должен содержать не менее 11 символов.";
+  }
+  if (!data.password || data.password.length < 8) {
+    errors.password = "Пароль должен содержать не менее 8 символов.";
+  }
+
+  return errors;
+};
+
 //!Обработчик маршрута POST "/users" для создания нового пользователя
 router.post("/registration", async (request, response) => {
   const { firstName, email, mobileNumber, password } = request.body;
+  const errors = validateData(request.body);
+
+  if (Object.keys(errors).length > 0) {
+    return response.status(400).json({ success: false, errors });
+  }
+
   const userEmail = await User.findOne({ email });
 
   if (userEmail) {
@@ -72,7 +97,7 @@ router.post("/login", async (request, response) => {
 router.get("/:_id", async (request, response) => {
   try {
     const { _id } = request.params;
-    const user = await User.findById({_id});
+    const user = await User.findById({ _id });
 
     return response.status(200).json(user);
   } catch (error) {
@@ -89,7 +114,9 @@ router.put("/:id", async (request, response) => {
     const result = await User.findByIdAndUpdate(id, request.body);
 
     if (!result) {
-      return response.status(404).send({ message: "Карточка пользователя не найдена" });
+      return response
+        .status(404)
+        .send({ message: "Карточка пользователя не найдена" });
     }
 
     return response
@@ -100,8 +127,6 @@ router.put("/:id", async (request, response) => {
     response.status(500).send({ message: `Ошибка: ${error.message}` });
   }
 });
-
-
 
 // const getProfile = async (req, res) => {
 //   const { token } = req.cookies;
@@ -115,6 +140,5 @@ router.put("/:id", async (request, response) => {
 //   }
 // }
 // router.get("/profile", getProfile)
-
 
 export default router;

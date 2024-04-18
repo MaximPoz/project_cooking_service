@@ -68,10 +68,11 @@ export const PersonalAccount = ({updateState}) => {
           </>
         )}
       </div>
-      <button onClick={handleLogout}>Выйти из аккаунта</button>
       <div className={style.changeFormLink}>
         <a href="/changeProfile">Изменить данные</a>
       </div>
+      <button onClick={handleLogout} className={style.btnLogout}>Выйти из аккаунта</button>
+      
     </div>
   );
 };

@@ -27,8 +27,9 @@ const houseSchema = mongoose.Schema(
       required: true,
     },
     img: {
-      type: String,
-      required: false,
+      type: Array,
+      default: [],
+      required: true,
     },
   },
   {
@@ -36,4 +37,4 @@ const houseSchema = mongoose.Schema(
   }
 );
 
-export const House = mongoose.model('House', houseSchema);
+export const House = mongoose.model("House", houseSchema);

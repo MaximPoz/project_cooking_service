@@ -3,17 +3,18 @@ import style from "./style.module.css";
 import { Link } from "react-router-dom";
 
 export const Product = ({ items }) => {
+  
   return (
     <div className={style.container}>
       {items &&
         items.map(
           (
-            { price, title, img, _id, area, address, description } //короче, тут URL присваевается id (далее в APP)
+            { price, title, _id, area, address, img, description } // Убираем квадратные скобки
           ) => (
             <Link to={`/${_id}`} key={_id}>
               <div className={style.item} key={title}>
                 <img
-                  src={img}
+                  src={img && img.length > 0 ? img[0] : "/project_cooking_service/imgApartments/1/1.jpeg"}
                   alt="тут должна быть картинка какого-то помещения"
                 />
                 <p className={style.textClass}>

@@ -7,6 +7,12 @@ import toast from "react-hot-toast";
 
 export const Registration = () => {
   const [pass, setPass] = useState(false);
+
+  const [nameState, setNameState] = useState(false);
+  const [emailState, setEmailState] = useState(false);
+  const [numberState, setNumberState] = useState(false);
+  const [passState, setPassState] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -57,6 +63,8 @@ export const Registration = () => {
     }
   };
 
+  
+
   return (
     <div className={style.container}>
       <h2 className="welcome">Регистрация</h2>
@@ -65,7 +73,7 @@ export const Registration = () => {
           className={style.input}
           type="text"
           placeholder="Имя"
-          {...register("firstName", { required: true, maxLength: 80 })}
+          {...register("firstName", { required: true, maxLength: 20 })}
         />
         {errors.firstName && <span>Поле "Имя" обязательно для заполнения</span>}
 
