@@ -62,6 +62,8 @@ export const ChangePassword = () => {
 
       <h2 className="welcome">Восстановление пароля</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+
+      <p className="textClass">Электронная почта</p>
         <input
           className={style.input}
           type="text"
@@ -71,6 +73,7 @@ export const ChangePassword = () => {
 
         <p className={style.captcha}> Введите пин-код: {captcha}</p>
 
+        <p className="textClass">Защитный код</p>
         <input
           className={style.captcha}
           type="text"

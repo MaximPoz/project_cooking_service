@@ -4,7 +4,7 @@ import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 export const LogIn = ({ updateState }) => {
   axios.defaults.withCredentials = true;
@@ -20,7 +20,6 @@ export const LogIn = ({ updateState }) => {
     axios
       .post("http://localhost:5555/users/login", { email, password })
       .then((res) => {
-
         // Получение токена из куки
         const getTokenFromCookie = () => {
           const token = document.cookie
@@ -35,9 +34,7 @@ export const LogIn = ({ updateState }) => {
 
         // Использование функции для получения токена
         const token = getTokenFromCookie();
-        localStorage.setItem('token', token);
-
-
+        localStorage.setItem("token", token);
 
         updateState(true);
         navigate("/personalAccount");
@@ -69,6 +66,7 @@ export const LogIn = ({ updateState }) => {
       <h2 className="welcome">Пожалуйста авторизуйтесь</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
+        <p className="textClass">Электронная почта</p>
         <input
           className={style.input}
           type="text"
@@ -82,6 +80,7 @@ export const LogIn = ({ updateState }) => {
           </span>
         )}
 
+        <p className="textClass">Пароль</p>
         <input
           className={style.input}
           type="password"

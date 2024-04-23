@@ -4,13 +4,16 @@
   left: -200px;
   width: 250px;
   height: 100%;
-  background-color: #082c42;; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-  transition: right 0.3s ease; 
+  transition: right 0.3s ease;
+  border-radius: 0px 20px;
+  transition: left 0.5s ease-in-out, background-color 0.5s ease-in-out; /* Кайф */
 }
 
 .toolbar.open {
-  left: 0; /* показываем панель, смещая её на 0 пикселей вправо */
+  left: 0;
+  background-color: #082c42;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: left 0.5s ease-in-out, background-color 0.5s ease-in-out; 
 }
 
 .filter {
@@ -43,13 +46,14 @@
 }
 
 .input {
-  padding: 8px;
+  padding: 4px;
   margin-right: 10px;
   width: 80px;
   border: 2px solid #fff;
   background-color: transparent;
   color: #fff;
   font-size: 16px;
+  border-radius: 5px;
 }
 
 .input::placeholder {
@@ -58,8 +62,10 @@
 
 .buttonForm {
   padding: 10px 20px;
+  margin: 10px 0px 0px 20px;
   background-color: transparent;
   border: 2px solid #fff;
+  border-radius: 5px;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
@@ -67,18 +73,17 @@
 }
 
 .buttonForm:hover {
-  background-color: #da7e51; /* розовый цвет при наведении */
-  color: #000; /* черный цвет текста при наведении */
+  background-color: #da7e51;
+  color: #000;
 }
 
-
-.btnOpen{
+.btnOpen {
   position: absolute;
   right: 0px;
   margin: 20px;
-  border: none; 
-  background-color: transparent; 
-  cursor: pointer; 
-  color: #fff;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #da7e51;
+  transform: scale(2);
 }
-

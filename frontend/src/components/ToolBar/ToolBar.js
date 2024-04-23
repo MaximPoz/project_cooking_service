@@ -105,7 +105,7 @@ export const ToolBar = ({
       </div>
       <div className={styles.priceFilter}>
         <div className={styles.titleFilter}>
-          <ImHome3 /> Площадь помещения
+          <ImHome3 /> Площадь
         </div>
         <input
           className={styles.input}

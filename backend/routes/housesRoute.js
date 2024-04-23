@@ -4,7 +4,7 @@ import { House } from "../models/houseModel.js";
 const router = express.Router();
 
 
-// Обработчик маршрута POST "/house" для создания нового дома
+//!Обработчик маршрута POST "/house" для создания нового дома
 router.post("/", async (request, response) => {
   const{title, price, area, address, description, category, img} = request.body;
   try {
@@ -45,7 +45,7 @@ router.post("/", async (request, response) => {
   }
 });
 
-// Обработчик маршрута GET "/houses" для получения всех домов
+//!Обработчик маршрута GET "/houses" для получения всех домов
 router.get("/", async (request, response) => {
   try {
     // Получение всех домов из базы данных
@@ -63,7 +63,7 @@ router.get("/", async (request, response) => {
   }
 });
 
-// Получение одной карточки дома по id
+//!Получение одной карточки дома по id
 router.get("/:_id", async (request, response) => {
   try {
     const { _id } = request.params;
@@ -110,7 +110,7 @@ router.put("/:id", async (request, response) => {
   }
 });
 
-//Удаление карточки дома
+//!Удаление карточки дома
 router.delete("/:id", async (request, response) => {
   try {
     const { id } = request.params;

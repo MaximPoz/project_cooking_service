@@ -20,6 +20,8 @@ export const EmailPassword = () => {
       <p>который получили в указанном ранее e-mail</p>
 
       <form onSubmit={handleSubmit(onSubmit)}>
+
+      <p className="textClass">Пин-код</p>
         <input
           className={style.input}
           type="text"

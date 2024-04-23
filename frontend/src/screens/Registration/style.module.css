@@ -38,3 +38,17 @@
 a {
   text-decoration: none;
 }
+
+.reCAPTCHA {
+  transform: scale(0.9); /* Уменьшение размера */
+  transform-origin: 0 0;
+}
+
+.error {
+  color: red;
+  font-size: 0.9em;
+}
+
+.inputError {
+  border: 1px solid red;
+}
