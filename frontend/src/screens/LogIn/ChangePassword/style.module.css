@@ -33,3 +33,8 @@
   margin: 10px;
   margin-bottom: 10px;
 }
+
+.reCAPTCHA {
+  transform: scale(0.9); /* Уменьшение размера */
+  transform-origin: 0 0;
+}

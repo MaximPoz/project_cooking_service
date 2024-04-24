@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
-import {jwtDecode} from "jwt-decode";
 import Cookies from "js-cookie";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 import {useNavigate } from "react-router-dom";
 
 export const PersonalAccount = ({updateState}) => {
@@ -19,7 +19,7 @@ export const PersonalAccount = ({updateState}) => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await axios.get(`${API_USERS}/${id}`); //Из APP мы забираем с помощью параметров id (который передали компоненте) и присваеваем запросу API
+        const response = await axios.get(`${API_USERS}/${id}`); //Из токена берём id
         setUser(response.data);
       } catch (error) {
         console.error(error);
@@ -42,7 +42,7 @@ export const PersonalAccount = ({updateState}) => {
       localStorage.removeItem("token");
       // Удаляем токен аутентификации из куков
       Cookies.remove("token");
-      // Перенаправляем пользователя на страницу авторизации (или другую страницу)
+      // Перенаправляем пользователя на страницу авторизации 
       navigate("/logIn");
     };
 

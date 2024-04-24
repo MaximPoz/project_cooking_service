@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
+import nodemailer from "nodemailer";
 
 const router = express.Router();
 
@@ -128,17 +129,69 @@ router.put("/:id", async (request, response) => {
   }
 });
 
-// const getProfile = async (req, res) => {
-//   const { token } = req.cookies;
-//   if (token) {
-//     jwt.verify(token, jwt_secret, {}, (err, user) => {
-//       if (err) throw err;
-//       res.json(user);
-//     });
-//   } else {
-//     res.json(null);
+
+router.post('/send-pin', async (req, res) => {
+  const { email } = req.body;
+
+  // Проверяем, существует ли пользователь с указанным E-mail
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(400).json({ message: 'Пользователь с таким E-mail не найден' });
+  }
+
+  // Генерируем случайный пин-код
+  const pinCode = Math.floor(Math.random() * 999999);
+  
+
+  // Обновляем пин-код пользователя в базе данных
+  user.pinCode = pinCode;
+  await user.save();
+
+  // Отправляем письмо с пин-кодом
+  const transporter = nodemailer.createTransport({
+    host:'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'executioner2126@gmail.com',
+        pass: 'xokd ouwx qtao bwnw',
+    },
+  });
+
+  await transporter.sendMail({
+    to: email,
+    subject: 'Восстановление пароля',
+    text: `Ваш пин-код для восстановления пароля: ${pinCode}`,
+  });
+
+  res.status(200).json({ message: 'Письмо с пин-кодом отправлено на указанный E-mail' });
+});
+
+
+
+
+// var transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'youremail@gmail.com',
+//     pass: 'yourpassword'
 //   }
-// }
-// router.get("/profile", getProfile)
+// });
+
+// var mailOptions = {
+//   from: 'youremail@gmail.com',
+//   to: 'myfriend@yahoo.com',
+//   subject: 'Sending Email using Node.js',
+//   text: 'That was easy!'
+// };
+
+// transporter.sendMail(mailOptions, function(error, info){
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log('Email sent: ' + info.response);
+//   }
+// });
+
 
 export default router;
