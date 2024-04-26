@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { createContext, useContext } from 'react';
 import { NavBar } from "./components/NavBar";
 import { FootBar } from "./components/FootBar";
 import { LogIn } from "./screens/LogIn";
@@ -16,6 +17,11 @@ import { ChangeProfile } from "./screens/PersonalAccount/ChangeProfile";
 import { ProductPage } from "./screens/List/Product";
 import { useState } from "react";
 import { RegSuccess } from "./screens/Registration/resSuccess";
+import { EmailNewPassword } from "./screens/LogIn/EnteringNewPass";
+import { SuccessPasswordRestored } from "./screens/LogIn/SuccessPasswordRestored";
+
+
+export const MyContext = createContext();
 
 export default function App() {
   // Получаем значение isAuth из локального хранилища при загрузке компонента
@@ -23,6 +29,14 @@ export default function App() {
     const storedIsAuth = localStorage.getItem('isAuth');
     return storedIsAuth === 'true';
   });
+
+  const [pinCode, setPinCode] = useState(null)
+
+  const handlePinCodeChange = (newData) => {
+    setPinCode(newData)
+  };
+
+   console.log(pinCode)
 
   // Функция для обновления состояния и сохранения его в локальном хранилище
   const updateState = (newState) => {
@@ -48,7 +62,7 @@ export default function App() {
   ];
 
   return (
-    <>
+    <MyContext.Provider value={handlePinCodeChange}>
         <Toaster position="top-right" gutter={10} />
 
         {isAuth === true ? (
@@ -63,8 +77,14 @@ export default function App() {
           <Route path="/project_cooking_service" element={<List />} />
 
           <Route path="/logIn" element={<LogIn updateState={updateState} />} />
+
+
           <Route path="/changePassword" element={<ChangePassword />} />
-          <Route path="/emailPassword" element={<EmailPassword />} />
+          <Route path="/emailPassword" element={<EmailPassword  />} />
+          <Route path="/emailNewPassword" element={<EmailNewPassword  />} />
+          <Route path="/successPasswordRestored" element={<SuccessPasswordRestored  />} />
+
+
 
           <Route
             path="/personalAccount"
@@ -83,6 +103,6 @@ export default function App() {
             element={<ProductPage  isAuth={isAuth}/>} //поскольку тут id это переменная, мы можем передать её в компоненту ProductPage
           />
         </Routes>
-    </>
+    </MyContext.Provider>
   );
 }

@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 import nodemailer from "nodemailer";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -17,8 +18,13 @@ const validateData = (data) => {
   if (!data.email || !data.email.includes("@")) {
     errors.email = "Укажите корректный адрес электронной почты.";
   }
-  if (!data.mobileNumber || data.mobileNumber.length < 6 || data.mobileNumber.length > 12){
-    errors.mobileNumber = "Номер телефона должен содержать не менее 11 символов.";
+  if (
+    !data.mobileNumber ||
+    data.mobileNumber.length < 6 ||
+    data.mobileNumber.length > 12
+  ) {
+    errors.mobileNumber =
+      "Номер телефона должен содержать не менее 11 символов.";
   }
   if (!data.password || data.password.length < 8) {
     errors.password = "Пароль должен содержать не менее 8 символов.";
@@ -110,9 +116,22 @@ router.get("/:_id", async (request, response) => {
 
 //!Обновления данных в карточке пользователя по id
 router.put("/:id", async (request, response) => {
+  console.log(request.body);
   try {
     const { id } = request.params;
+    
+    // Хэшируем новый пароль
+    if (request.body.password) {
+      const hashPassword = await bcrypt.hash(request.body.password, 10);
+      request.body.password = hashPassword;
+    }
+
     const result = await User.findByIdAndUpdate(id, request.body);
+    
+    // Сохраняем обновленные данные
+    await result.save();
+
+    console.log("Результат обновления:", result);
 
     if (!result) {
       return response
@@ -130,68 +149,71 @@ router.put("/:id", async (request, response) => {
 });
 
 
-router.post('/send-pin', async (req, res) => {
+//!Восстановление пароля (отправляем письмо пользователю)
+router.post("/send-pin", async (req, res) => {
   const { email } = req.body;
 
   // Проверяем, существует ли пользователь с указанным E-mail
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(400).json({ message: 'Пользователь с таким E-mail не найден' });
+    return res
+      .status(400)
+      .json({ message: "Пользователь с таким E-mail не найден" });
   }
 
   // Генерируем случайный пин-код
-  const pinCode = Math.floor(Math.random() * 999999);
-  
+  const pinCode = Math.floor(
+    Math.floor(Math.random() * (999999 - 111111 + 1)) + 111111
+  );
 
   // Обновляем пин-код пользователя в базе данных
   user.pinCode = pinCode;
   await user.save();
 
+  console.log("pinCode:", user.pinCode);
+
   // Отправляем письмо с пин-кодом
   const transporter = nodemailer.createTransport({
-    host:'smtp.gmail.com',
+    host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
-        user: 'executioner2126@gmail.com',
-        pass: 'xokd ouwx qtao bwnw',
+      user: "executioner2126@gmail.com", //введите тут логин почты ....@gmail.com
+      pass: "xokd ouwx qtao bwnw", //16 значный пароль приложений из myaccount.google.com
     },
   });
 
   await transporter.sendMail({
     to: email,
-    subject: 'Восстановление пароля',
+    subject: "Восстановление пароля",
     text: `Ваш пин-код для восстановления пароля: ${pinCode}`,
   });
 
-  res.status(200).json({ message: 'Письмо с пин-кодом отправлено на указанный E-mail' });
+  res.status(200).json({ message: pinCode });
 });
 
+//!Сверка pin-code
+router.post("/check-pin", async (req, res) => {
+  const { email, pinCode } = req.body;
+  console.log(email);
+  // Проверяем, существует ли пользователь с указанным E-mail
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res
+      .status(400)
+      .json({ message: "Пользователь с таким E-mail не найден" });
+  }
+  console.log(pinCode);
+  console.log(user.pinCode);
 
-
-
-// var transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'youremail@gmail.com',
-//     pass: 'yourpassword'
-//   }
-// });
-
-// var mailOptions = {
-//   from: 'youremail@gmail.com',
-//   to: 'myfriend@yahoo.com',
-//   subject: 'Sending Email using Node.js',
-//   text: 'That was easy!'
-// };
-
-// transporter.sendMail(mailOptions, function(error, info){
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log('Email sent: ' + info.response);
-//   }
-// });
-
+  // Обновляем пин-код пользователя в базе данных
+  if (user.pinCode == pinCode) {
+    res.status(200).json({ message: user._id });
+    user.pinCode = "";
+    user.save();
+  } else {
+    res.status(400).json({ message: "neOk" });
+  }
+});
 
 export default router;

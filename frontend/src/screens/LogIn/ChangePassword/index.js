@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -6,22 +6,43 @@ import axios from "axios";
 
 import style from "./style.module.css";
 
+
 export const ChangePassword = () => {
-  const [message, setMessage] = useState('');
-  
+  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+
+
   const navigate = useNavigate();
 
-  const { register, handleSubmit: handleFormSubmit, formState: { errors } } = useForm();
+  const handleRecaptchaChange = (value) => {
+    if (value) {
+      setIsVerified(true);
+    }
+  };
+
+  const {
+    register,
+    handleSubmit: handleFormSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
+    setEmail(data.Email);
     try {
-      const response = await axios.post('http://localhost:5555/users/send-pin', { email: data.Email });
+      const response = await axios.post(
+        "http://localhost:5555/users/send-pin",
+        { email: data.Email }
+      );
+      console.log("Ответ от сервера:", response.data.message);
       setMessage(response.data.message);
-      navigate("/emailPassword");
+      navigate("/emailPassword", { state: { pinCode: response.data.message, email: data.Email } });
     } catch (error) {
       setMessage(error.response.data.message);
     }
   };
+
+  console.log(email);
 
   return (
     <div className={style.container}>
@@ -34,14 +55,26 @@ export const ChangePassword = () => {
           placeholder="Электронная почта"
           {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
         />
-        {errors.Email && <span className={style.error}>Поле "Электронная почта" обязательно и должно быть в формате example@example.com</span>}
-
+        {errors.Email && (
+          <span className={style.error}>
+            Поле "Электронная почта" обязательно и должно быть в формате
+            чё_то_там@блабла.ком xD
+          </span>
+        )}
         <ReCAPTCHA
           className={style.reCAPTCHA}
           sitekey="6LcwysMpAAAAAJkItsh9LcA0UfpDvEzlZ8rdi9wd"
+          onChange={handleRecaptchaChange}
         />
 
-        <input className="Btn" type="submit" value="Отправить" />
+        <input
+          disabled={!isVerified}
+          className={`Btn ${
+            !isVerified && !errors.Email && !email ? "disabledBtn" : ""
+          }`}
+          type="submit"
+          value="Отправить"
+        />
       </form>
       {message && <p>{message}</p>}
     </div>

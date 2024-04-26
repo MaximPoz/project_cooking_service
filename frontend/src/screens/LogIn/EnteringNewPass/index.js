@@ -1,44 +1,80 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { useForm } from "react-hook-form";
 import style from "./style.module.css";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
+export const EmailNewPassword = () => {
+  const location = useLocation();
+  const API_USERS = "http://localhost:5555/users";
 
+  const id = location.state?.id; // Получение _id из стейта
 
-export const EmailPassword = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm();
-      const onSubmit = (data) => console.log(data);
-      console.log(errors);
+  console.log(id)
 
-      
-    return (
-        <div className={style.container}>
-            <h2 className="welcome">Восстановление пароля</h2>
+  const navigate = useNavigate();
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
 
-          <input
-            className={style.input}
-            type="text"
-            placeholder="Электронная почта"
-            {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
-          />
+  const password = watch("password", "");
+  const repeatPassword = watch("repeatPassword", "");
 
-          <input
-            className={style.input}
-            type="text"
-            placeholder="Ввод пин-кода"
-            {...register("pinCod", { required: true, maxLength: 4 })}
-          />
-            
-          <input className='Btn' type="submit" value="Отправить" />
+  const onSubmit = async (data) => {
 
-        </form>
-        </div>
-    )
-}
+    const userData = {
+      password: data.password,
+    };
+    console.log(userData)
+    try {
+      const response = await axios.put(`${API_USERS}/${id}`, userData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log("Ответ от сервера:", response.data);
+      navigate('/successPasswordRestored');
+    } catch (error) {
+      console.error("Ошибка при обновлении данных пользователя:", error.response.data);
+    }
+  };
+
+  const isPasswordsMatch = password === repeatPassword && password !== "";
+
+  return (
+    <div className={style.container}>
+      <h2 className="welcome">Введите новый пароль</h2>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <p className="textClass">Введите пароль</p>
+        <input
+          className={style.input}
+          type="password"
+          placeholder="Пароль"
+          {...register("password", { required: true, minLength: 6 })}
+        />
+
+        <p className="textClass">Повторите пароль</p>
+        <input
+          className={style.input}
+          type="password"
+          placeholder="Повторите пароль"
+          {...register("repeatPassword", { required: true, minLength: 6 })}
+        />
+
+        <input
+          disabled={!isPasswordsMatch}
+          className={`Btn ${!isPasswordsMatch ? "disabledBtn" : ""}`}
+          type="submit"
+          value="Отправить"
+        />
+      </form>
+    </div>
+  );
+};
