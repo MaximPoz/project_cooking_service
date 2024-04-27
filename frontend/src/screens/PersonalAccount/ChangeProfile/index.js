@@ -4,8 +4,13 @@ import { useForm } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+
 
 export const ChangeProfile = () => {
+  const navigate = useNavigate()
+
   const [user, setUser] = useState({
     name: "Загрузка",
     email: "Загрузка",
@@ -23,7 +28,7 @@ export const ChangeProfile = () => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await axios.get(`${API_USERS}/${id}`); //Из APP мы забираем с помощью параметров id (который передали компоненте) и присваеваем запросу API
+        const response = await axios.get(`${API_USERS}/${id}`);
         setUser(response.data);
       } catch (error) {
         console.error(error);
@@ -59,8 +64,9 @@ export const ChangeProfile = () => {
       const response = await axios.put(`${API_USERS}/${id}`, filteredData);
       console.log("Данные пользователя успешно обновлены:", response.data);
       toast.success("Данные пользователя успешно обновлены", {
-        duration: 6000,
+        duration: 3000,
       });
+      navigate('/logIn')
     } catch (error) {
       console.error("Ошибка при обновлении данных пользователя:", error);
     }
@@ -74,18 +80,21 @@ export const ChangeProfile = () => {
 
       <form className={style.changeAccount} onSubmit={handleSubmit(onSubmit)}>
         <input
+          autocomplete="new-password"
           className={style.changeInfo}
           type="text"
           placeholder="Введите новое Имя"
           {...register("firstName", { required: false, maxLength: 80 })}
         />
         <input
+          autocomplete="new-password"
           className={style.changeInfo}
           type="text"
           placeholder="Введите новый Email"
           {...register("email", { required: false })}
         />
         <input
+          autocomplete="new-password"
           className={style.changeInfo}
           type="tel"
           placeholder="Введите новый номер телефона"
@@ -96,6 +105,7 @@ export const ChangeProfile = () => {
           })}
         />
         <input
+          autocomplete="new-password"
           className={style.changeInfo}
           type="password"
           placeholder="Введите новый пароль"

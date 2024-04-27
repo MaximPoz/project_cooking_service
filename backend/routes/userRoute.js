@@ -3,15 +3,16 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 import nodemailer from "nodemailer";
-import mongoose from "mongoose";
+
 
 const router = express.Router();
-
 const jwt_secret = process.env.JWT_SECRET;
 
+
+ // Проводим валидацию данных
 const validateData = (data) => {
   const errors = {};
-  // Проводим валидацию данных
+ 
   if (!data.firstName || data.firstName.length < 3) {
     errors.firstName = "Имя пользователя должно содержать не менее 3 символов.";
   }
@@ -33,7 +34,7 @@ const validateData = (data) => {
   return errors;
 };
 
-//!Обработчик маршрута POST "/users" для создания нового пользователя
+//!Создания нового пользователя
 router.post("/registration", async (request, response) => {
   const { firstName, email, mobileNumber, password } = request.body;
   const errors = validateData(request.body);

@@ -49,7 +49,7 @@ export const ProductPage = ({ isAuth }) => {
       <p className={style.textClass}>Описание: {description}</p>
 
       {isAuth ? (
-        <Link to={`https://forms.yandex.ru/cloud/6620d988d046880423b4b472/`}>
+        <Link target="_blank" to={`https://forms.yandex.ru/cloud/6620d988d046880423b4b472/`}>
           <button className={style.btn}>Написать сообщение арендодателю</button>
         </Link>
       ) : (
