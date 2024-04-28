@@ -1,9 +1,24 @@
 import React, { useState } from "react";
-import style from "./style.module.css";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import style from "./style.module.css";
+import axios from "axios";
+import toast from "react-hot-toast";
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 export const Registration = () => {
   const [pass, setPass] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [serverErrors, setServerErrors] = useState({});
+
+  const navigate = useNavigate();
+
+  const handleRecaptchaChange = (value) => {
+    if (value) {
+      setIsVerified(true);
+    }
+  };
 
   const {
     register,
@@ -12,65 +27,34 @@ export const Registration = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    if (data.Password === data.rePassword) {
-      setPass(true);
-      console.log(data);
-      const userData = {
-          email:'John123@gmail.com',
-          username:'johnd123',
-          password:'123123',
-          name:{
-              firstname:'John',
-              lastname:'Doe'
-          },
-          address:{
-              city:'kilcoole',
-              street:'7835 new road',
-              number:3,
-              zipcode:'12926-3874',
-              geolocation:{
-                  lat:'-37.3159',
-                  long:'81.1496'
-              }
-          },
-          phone:'1-570-236-7033'
-      }
-      //   email: data.Email,
-      //   username: data.Email,
-      //   password: data.Password,
-      //   name: {
-      //     firstname: data.Email,
-      //     lastname: data.Email
-      //   },
-      //   address: {
-      //     city: data.Email,
-      //     street: data.Email,
-      //     number: 0,
-      //     zipcode: data.Email,
-      //     geolocation: {
-      //       lat: data.Email,
-      //       long: data.Email
-      //     }
-      //   },
-      //   phone: data["Mobile number"]
-      // };
-      
+    if (data.password === data.rePassword) {
       try {
-        const response = await fetch('https://fakestoreapi.com/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(userData)
-        });
+        const response = await axios.post(
+          "http://localhost:5555/users/registration",
+          {
+            firstName: data.firstName,
+            email: data.email,
+            mobileNumber: data.mobileNumber,
+            password: data.password,
+          }
+        );
 
-        const json = await response.json();
-        console.log(json);
+        if (response.status === 200) {
+          setPass(true);
+          console.log(`Регистрация успешна ${response.data.message}`);
+          navigate("/regSuccess");
+        }
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Ошибка при отправке запроса:", error);
+        if (error.response && error.response.data && error.response.data.errors) {
+          setServerErrors(error.response.data.errors);
+        } 
       }
     } else {
       setPass(false);
+      toast.error(
+        'Пароли не совпадают! Пожалуйста введите пароль и повторите его в поле "Повторите пароль"'
+      );
     }
   };
 
@@ -78,50 +62,63 @@ export const Registration = () => {
     <div className={style.container}>
       <h2 className="welcome">Регистрация</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <p className="textClass">Имя</p>
         <input
-          className={style.input}
+          className={`${style.input} ${ serverErrors.firstName ? style.inputError : ''}`}
           type="text"
           placeholder="Имя"
-          {...register("First name", { required: true, maxLength: 80 })}
+          {...register("firstName", { required: true, maxLength: 20 })}
         />
+        {serverErrors.firstName && <span className={style.error}>{serverErrors.firstName}</span>}
 
+        <p className="textClass" >Почта</p>
         <input
-          className={style.input}
+          className={`${style.input} ${ serverErrors.firstName ? style.inputError : ''}`}
           type="text"
           placeholder="Электронная почта"
-          {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
+          {...register("email", { required: true })}
         />
-
+        {serverErrors.email && <span className={style.error}>{serverErrors.email}</span>}
+        
+        <p className="textClass">Мобила</p>
         <input
-          className={style.input}
+          className={`${style.input} ${ serverErrors.firstName ? style.inputError : ''}`}
           type="tel"
           placeholder="Номер телефона"
-          {...register("Mobile number", {
-            required: true,
-            minLength: 6,
-            maxLength: 12,
-          })}
+          {...register("mobileNumber", { required: true })}
         />
+        {serverErrors.mobileNumber && <span className={style.error}>{serverErrors.mobileNumber}</span>}
 
+        <p className="textClass">Пароль</p>
         <input
-          className={style.input}
+          className={`${style.input} ${ serverErrors.firstName ? style.inputError : ''}`}
           type="password"
           placeholder="Пароль"
-          {...register("Password", { required: true, maxLength: 100 })}
+          {...register("password", { required: true })}
+        />
+        {serverErrors.password && <span className={style.error}>{serverErrors.password}</span>}
+
+        <p className="textClass">Повторите пароль</p>
+        <input
+          className={`${style.input} ${ serverErrors.firstName ? style.inputError : ''}`}
+          type="password"
+          placeholder="Повторите пароль"
+          {...register("rePassword", { required: true })}
+        />
+        {serverErrors.rePassword && <span className={style.error}>{serverErrors.rePassword}</span>}
+
+        <ReCAPTCHA
+          className={style.reCAPTCHA}
+          sitekey="6LcwysMpAAAAAJkItsh9LcA0UfpDvEzlZ8rdi9wd"
+          onChange={handleRecaptchaChange}
         />
 
         <input
-          className={style.input}
-          type="password"
-          placeholder="Повторите пароль"
-          {...register("rePassword", { required: true, maxLength: 100 })}
+          disabled={!isVerified}
+          className={`Btn ${!isVerified ? "disabledBtn" : ""}`}
+          type="submit"
+          value="Регистрация"
         />
-
-        {pass ? (
-          <input className='Btn' type="submit" value="Регистрация" />
-        ) : (
-          <input className='Btn' type="submit" value="Пароли разные" />
-        )}
       </form>
     </div>
   );

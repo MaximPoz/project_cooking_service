@@ -1,37 +1,64 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import axios from "axios";
 import style from "./style.module.css";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { jwtDecode } from "jwt-decode";
 
 export const LogIn = ({ updateState }) => {
+  axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    try {
-      const userLogin = {
-        username: data.Email,
-        password: data.Password,
-      };
+  const onSubmit = async ({ email, password }) => {
+    axios
+      .post("http://localhost:5555/users/login", { email, password })
+      .then((res) => {
+        // Получение токена из куки
+        const getTokenFromCookie = () => {
+          const token = document.cookie
+            .split(";")
+            .find((cookie) => cookie.trim().startsWith("token="));
+          if (token) {
+            return token.split("=")[1];
+          } else {
+            return null;
+          }
+        };
 
-      const response = await fetch("https://fakestoreapi.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userLogin),
+        // Использование функции для получения токена
+        const token = getTokenFromCookie();
+        localStorage.setItem("token", token);
+
+        updateState(true);
+        navigate("/personalAccount");
+      })
+      .catch((error) => {
+        if (error.response.status === 405) {
+          //Во жесть тут xD
+          console.error(error.response.data.message);
+          toast(
+            (t) => (
+              <span>
+                Забыли пароль?¯\_(ツ)_/¯ Восстановим! 😀
+                <button
+                  className={style.btn}
+                  onClick={() => toast.dismiss(navigate("/changePassword"))}
+                >
+                  Жми сюда!
+                </button>
+              </span>
+            ),
+            { duration: 8000 }
+          );
+        }
       });
-
-      const json = await response.json();
-      console.log(json);
-
-      updateState(true); 
-    } catch (error) {
-      console.error("Error:", error);
-    }
   };
 
   return (
@@ -39,19 +66,32 @@ export const LogIn = ({ updateState }) => {
       <h2 className="welcome">Пожалуйста авторизуйтесь</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
+        <p className="textClass">Электронная почта</p>
         <input
           className={style.input}
           type="text"
           placeholder="Электронная почта"
-          {...register("Email", { required: true,  })}
+          {...register("email", { required: true })}
         />
+        {errors.email && (
+          <span className={style.error}>
+            Поле "Электронная почта" обязательно для заполнения и должно быть в
+            формате example@example.com
+          </span>
+        )}
 
+        <p className="textClass">Пароль</p>
         <input
           className={style.input}
-          type="Password"
+          type="password"
           placeholder="Пароль"
-          {...register("Password", { required: true, maxLength: 100 })}
+          {...register("password", { required: true, maxLength: 100 })}
         />
+        {errors.password && (
+          <span className={style.error}>
+            Пароль должен содержать не менее 8 символов
+          </span>
+        )}
 
         <input className="Btn" type="submit" value="Отправить" />
       </form>
