@@ -7,55 +7,40 @@ import {
   ImHome3,
 } from "react-icons/im";
 
-export const ToolBar = ({
-  filters,
-  onSelectFilter,
-  onPriceFilter,
-  onAreaFilter,
-}) => {
-  const renamedFilters = {
-    All: "Все",
-    rooms: "Комнаты",
-    apartments: "Апартаменты",
-    hotel: "Отель",
-  };
+const renamedFilters = {
+  All: "Все",
+  rooms: "Комнаты",
+  apartments: "Апартаменты",
+  hotel: "Отель",
+};
 
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [minArea, setMinArea] = useState("");
-  const [maxArea, setMaxArea] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+export const ToolBar = ({ filters, setFilters, applyFilters }) => {
+  const[isOpen, setIsOpen] = useState(true)
+  const { selected, minPrice, maxPrice, minArea, maxArea } = filters;
 
-  const handleMinPriceChange = (event) => {
-    setMinPrice(event.target.value);
-  };
-
-  const handleMaxPriceChange = (event) => {
-    setMaxPrice(event.target.value);
-  };
-
-  const handlePriceFilter = () => {
-    onPriceFilter(minPrice, maxPrice);
-  };
-
-  const handleMinAreaChange = (event) => {
-    setMinArea(event.target.value);
-  };
-
-  const handleMaxAreaChange = (event) => {
-    setMaxArea(event.target.value);
-  };
-
-  const handleAreaFilter = () => {
-    onAreaFilter(minArea, maxArea);
+  const handleFilterChange = (filterType, value) => {
+    setFilters({
+      ...filters,
+      [filterType]: value
+    });
   };
 
   const handleClick = (filter) => {
-    onSelectFilter(filter);
+    setFilters({
+      ...filters,
+      selected: filter
+    });
   };
 
+  // const handleApplyFilters = () => {
+  //   applyFilters();
+  // };
+
   const handleTogglePanel = () => {
-    setIsOpen(!isOpen);
+    setFilters({
+      ...filters,
+      isOpen: !filters.isOpen
+    });
   };
 
   const upperCase = (string) => {
@@ -70,12 +55,12 @@ export const ToolBar = ({
         {isOpen ? <ImCircleLeft /> : <ImCircleRight />}
       </button>
       <ul className={styles.filter}>
-        {filters.map((filter) => {
-          const displayName = renamedFilters[filter] || filter;
+        {Object.keys(renamedFilters).map((filter) => {
+          const displayName = renamedFilters[filter];
           return (
             <li
               key={filter}
-              className={styles.filterElement}
+              className={`${styles.filterElement} ${selected === filter ? styles.active : ""}`}
               onClick={() => handleClick(filter)}
             >
               {upperCase(displayName)}
@@ -92,16 +77,15 @@ export const ToolBar = ({
           type="number"
           placeholder="Min"
           value={minPrice}
-          onChange={handleMinPriceChange}
+          onChange={(e) => handleFilterChange("minPrice", e.target.value)}
         />
         <input
           className={styles.input}
           type="number"
           placeholder="Max"
           value={maxPrice}
-          onChange={handleMaxPriceChange}
+          onChange={(e) => handleFilterChange("maxPrice", e.target.value)}
         />
-        <button className={styles.buttonForm} onClick={handlePriceFilter}>Применить</button>
       </div>
       <div className={styles.priceFilter}>
         <div className={styles.titleFilter}>
@@ -112,17 +96,17 @@ export const ToolBar = ({
           type="number"
           placeholder="Min"
           value={minArea}
-          onChange={handleMinAreaChange}
+          onChange={(e) => handleFilterChange("minArea", e.target.value)}
         />
         <input
           className={styles.input}
           type="number"
           placeholder="Max"
           value={maxArea}
-          onChange={handleMaxAreaChange}
+          onChange={(e) => handleFilterChange("maxArea", e.target.value)}
         />
-        <button className={styles.buttonForm} onClick={handleAreaFilter}>Применить</button>
       </div>
     </div>
   );
 };
+
