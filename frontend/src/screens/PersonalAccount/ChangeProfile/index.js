@@ -29,6 +29,9 @@ export const ChangeProfile = () => {
     const fetchItem = async () => {
       try {
         const response = await axios.get(`${API_USERS}/${id}`);
+        if (!response.ok) {
+          throw new Error('Ошибка')
+        }
         setUser(response.data);
       } catch (error) {
         console.error(error);

@@ -14,8 +14,8 @@ const renamedFilters = {
   hotel: "Отель",
 };
 
-export const ToolBar = ({ filters, setFilters, applyFilters }) => {
-  const[isOpen, setIsOpen] = useState(true)
+export const ToolBar = ({ filters, setFilters }) => {
+  const [isOpen, setIsOpen] = useState(true)
   const { selected, minPrice, maxPrice, minArea, maxArea } = filters;
 
   const handleFilterChange = (filterType, value) => {
@@ -32,15 +32,8 @@ export const ToolBar = ({ filters, setFilters, applyFilters }) => {
     });
   };
 
-  // const handleApplyFilters = () => {
-  //   applyFilters();
-  // };
-
   const handleTogglePanel = () => {
-    setFilters({
-      ...filters,
-      isOpen: !filters.isOpen
-    });
+    setIsOpen(!isOpen);
   };
 
   const upperCase = (string) => {

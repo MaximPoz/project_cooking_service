@@ -1,12 +1,30 @@
 .toolbar {
-  position: fixed;
+  position: absolute;
   top: 12%;
-  left: -200px;
+  left: 2 ;
   width: 245px;
-  height: 100%;
+  max-height: 100%;
   transition: right 0.3s ease;
   border-radius: 0px 20px;
   transition: left 0.5s ease-in-out, background-color 0.5s ease-in-out; /* Кайф */
+}
+
+@media (max-height: 1064px) {
+  .toolbar {
+    top: 20%; /* Сдвинуть элемент вниз при увеличении ширины окна просмотра */
+  }
+}
+
+@media (max-height: 900px) {
+  .toolbar {
+    top: 30%; /* Еще больше сдвинуть элемент вниз при дальнейшем увеличении ширины окна просмотра */
+  }
+}
+
+@media (max-height: 630px) {
+  .toolbar {
+    top: 40%; /* Еще больше сдвинуть элемент вниз при дальнейшем увеличении ширины окна просмотра */
+  }
 }
 
 .toolbar.open {
@@ -32,7 +50,7 @@
 }
 
 .filterElement:hover {
-  color: #da7e51; /* розовый цвет при наведении */
+  color: #da7e51; 
 }
 
 .priceFilter {
@@ -42,12 +60,12 @@
 .titleFilter {
   color: #fff;
   font-size: 20px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .input {
   padding: 4px;
-  margin-right: 10px;
+  margin: 0px 0px  10px 10px;
   width: 80px;
   border: 2px solid #fff;
   background-color: transparent;
