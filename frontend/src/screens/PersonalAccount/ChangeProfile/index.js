@@ -4,11 +4,12 @@ import { useForm } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 
 
-export const ChangeProfile = () => {
+export const ChangeProfile = ({updateState}) => {
   const navigate = useNavigate()
 
   const [user, setUser] = useState({
@@ -46,7 +47,16 @@ export const ChangeProfile = () => {
       : user.name;
   };
 
-
+  const handleLogout = () => {
+    // Сбрасываем состояние isAuth
+    updateState(false);
+    // Удаляем токен аутентификации из локального хранилища
+    localStorage.removeItem("token");
+    // Удаляем токен аутентификации из куков
+    Cookies.remove("token");
+    // Перенаправляем пользователя на страницу авторизации 
+    navigate("/logIn");
+  };
 
   const {
     register,
@@ -66,10 +76,10 @@ export const ChangeProfile = () => {
     try {
       const response = await axios.put(`${API_USERS}/${id}`, filteredData);
       console.log("Данные пользователя успешно обновлены:", response.data);
-      toast.success("Данные пользователя успешно обновлены", {
+      toast.success("Данные пользователя успешно обновлены, в целях безовпасности просим вас повторно авторизоваться", {
         duration: 3000,
       });
-      navigate('/logIn')
+      handleLogout()
     } catch (error) {
       console.error("Ошибка при обновлении данных пользователя:", error);
     }

@@ -82,7 +82,7 @@ export default function App() {
             path="/personalAccount"
             element={<PersonalAccount isAuth={isAuth} updateState={updateState}/>}
           />
-          <Route path="/changeProfile" element={<ChangeProfile />} />
+          <Route path="/changeProfile" element={<ChangeProfile isAuth={isAuth} updateState={updateState}/>} />
 
           <Route path="/reg" element={<Registration isAuth={isAuth} />} />
           <Route path="/regSuccess" element={<RegSuccess />} />
