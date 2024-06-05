@@ -1,29 +1,29 @@
 .toolbar {
   position: absolute;
   top: 12%;
-  left: 2 ;
+  left: -200px ;
   width: 245px;
   max-height: 100%;
   transition: right 0.3s ease;
-  border-radius: 0px 20px;
+  border-radius: 0 20px 20px 0 ;
   transition: left 0.5s ease-in-out, background-color 0.5s ease-in-out; /* Кайф */
 }
 
 @media (max-height: 1064px) {
   .toolbar {
-    top: 20%; /* Сдвинуть элемент вниз при увеличении ширины окна просмотра */
+    top: 20%; 
   }
 }
 
 @media (max-height: 900px) {
   .toolbar {
-    top: 30%; /* Еще больше сдвинуть элемент вниз при дальнейшем увеличении ширины окна просмотра */
+    top: 30%; 
   }
 }
 
 @media (max-height: 630px) {
   .toolbar {
-    top: 40%; /* Еще больше сдвинуть элемент вниз при дальнейшем увеличении ширины окна просмотра */
+    top: 40%; 
   }
 }
 
@@ -65,7 +65,7 @@
 
 .input {
   padding: 4px;
-  margin: 0px 0px  10px 10px;
+  margin: 0px 0px 10px 10px;
   width: 80px;
   border: 2px solid #fff;
   background-color: transparent;
@@ -104,4 +104,16 @@
   cursor: pointer;
   color: #da7e51;
   transform: scale(2);
+}
+
+.buttonForm{
+  padding: 10px 20px;
+  margin: 10px 10px 10px 50px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

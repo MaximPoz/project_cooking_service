@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 export const ChangeProfile = ({updateState}) => {
   const navigate = useNavigate()
 
+  const [useArea, serUseArea] = useState(true)
   const [user, setUser] = useState({
     name: "Загрузка",
     email: "Загрузка",
@@ -66,12 +67,18 @@ export const ChangeProfile = ({updateState}) => {
 
   const onSubmit = async (data) => {
     console.log(data);
-
     // Отфильтровываем данные, чтобы не отправлять пустые поля
     const filteredData = Object.fromEntries(
       Object.entries(data).filter(([key, value]) => value !== '')
     );
     console.log(filteredData);
+
+    if(Object.keys(filteredData).length === 0){
+      navigate("/personalAccount");
+      toast.success("В связи с отсутствием изменений вы были перенаправлены в Личный кабинет 😀", {
+        duration: 3000,
+      });
+    }else{
 
     try {
       const response = await axios.put(`${API_USERS}/${id}`, filteredData);
@@ -84,6 +91,7 @@ export const ChangeProfile = ({updateState}) => {
       console.error("Ошибка при обновлении данных пользователя:", error);
     }
   };
+  }
 
   return (
     <div className={style.personalAccount}>

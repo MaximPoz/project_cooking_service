@@ -1,11 +1,7 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import styles from "./styles.module.css";
-import {
-  ImCircleRight,
-  ImCircleLeft,
-  ImCoinDollar,
-  ImHome3,
-} from "react-icons/im";
+import { ImCircleRight, ImCircleLeft, ImCoinDollar, ImHome3 } from "react-icons/im";
 
 const renamedFilters = {
   All: "Все",
@@ -15,20 +11,19 @@ const renamedFilters = {
 };
 
 export const ToolBar = ({ filters, setFilters }) => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(true);
   const { selected, minPrice, maxPrice, minArea, maxArea } = filters;
 
-  const handleFilterChange = (filterType, value) => {
-    setFilters({
-      ...filters,
-      [filterType]: value
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleClick = (filter) => {
     setFilters({
       ...filters,
-      selected: filter
+      selected: filter,
     });
   };
 
@@ -42,6 +37,16 @@ export const ToolBar = ({ filters, setFilters }) => {
       : "Loading...";
   };
 
+  const onSubmit = (data) => {
+    setFilters({
+      ...filters,
+      minPrice: data.minPrice,
+      maxPrice: data.maxPrice,
+      minArea: data.minArea,
+      maxArea: data.maxArea,
+    });
+  };
+
   return (
     <div className={`${styles.toolbar} ${isOpen ? styles.open : ""}`}>
       <button className={styles.btnOpen} onClick={handleTogglePanel}>
@@ -53,7 +58,9 @@ export const ToolBar = ({ filters, setFilters }) => {
           return (
             <li
               key={filter}
-              className={`${styles.filterElement} ${selected === filter ? styles.active : ""}`}
+              className={`${styles.filterElement} ${
+                selected === filter ? styles.active : ""
+              }`}
               onClick={() => handleClick(filter)}
             >
               {upperCase(displayName)}
@@ -61,45 +68,48 @@ export const ToolBar = ({ filters, setFilters }) => {
           );
         })}
       </ul>
-      <div className={styles.priceFilter}>
-        <div className={styles.titleFilter}>
-          <ImCoinDollar /> Цена
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.priceFilter}>
+          <div className={styles.titleFilter}>
+            <ImCoinDollar /> Цена
+          </div>
+          <input
+            className={styles.input}
+            type="number"
+            placeholder="Min"
+            defaultValue={minPrice}
+            {...register("minPrice")}
+          />
+          <input
+            className={styles.input}
+            type="number"
+            placeholder="Max"
+            defaultValue={maxPrice}
+            {...register("maxPrice")}
+          />
         </div>
-        <input
-          className={styles.input}
-          type="number"
-          placeholder="Min"
-          value={minPrice}
-          onChange={(e) => handleFilterChange("minPrice", e.target.value)}
-        />
-        <input
-          className={styles.input}
-          type="number"
-          placeholder="Max"
-          value={maxPrice}
-          onChange={(e) => handleFilterChange("maxPrice", e.target.value)}
-        />
-      </div>
-      <div className={styles.priceFilter}>
-        <div className={styles.titleFilter}>
-          <ImHome3 /> Площадь
+        <div className={styles.priceFilter}>
+          <div className={styles.titleFilter}>
+            <ImHome3 /> Площадь
+          </div>
+          <input
+            className={styles.input}
+            type="number"
+            placeholder="Min"
+            defaultValue={minArea}
+            {...register("minArea")}
+          />
+          <input
+            className={styles.input}
+            type="number"
+            placeholder="Max"
+            defaultValue={maxArea}
+            {...register("maxArea")}
+          />
         </div>
-        <input
-          className={styles.input}
-          type="number"
-          placeholder="Min"
-          value={minArea}
-          onChange={(e) => handleFilterChange("minArea", e.target.value)}
-        />
-        <input
-          className={styles.input}
-          type="number"
-          placeholder="Max"
-          value={maxArea}
-          onChange={(e) => handleFilterChange("maxArea", e.target.value)}
-        />
-      </div>
+        <button className={styles.buttonForm} type="submit">Применить</button>
+      </form>
     </div>
   );
 };
-
