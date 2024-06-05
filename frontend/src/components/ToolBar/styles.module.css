@@ -1,5 +1,5 @@
 .toolbar {
-  position: absolute;
+  position: fixed;
   top: 12%;
   left: -200px ;
   width: 245px;
